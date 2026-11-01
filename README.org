@@ -7,9 +7,9 @@ This repo is one of the two inputs of an *assembled AI-Activity templates base*.
 *BISOS-AI-Workflow* layer: the part of the templates that defines how a human and Claude Code work
 together on a project, independent of any particular software ecosystem.
 
-The other input is [[https://github.com/bxexamples/aiTemplates-DE][aiTemplates-DE]], the
+The other input is [[https://github.com/bxObjects/aiTemplates-DE][aiTemplates-DE]], the
 *BISOS-Digital-Ecosystem-Skills* layer (ecosystem skills and activities). The two are combined into one
-base, [[https://github.com/bxexamples/aiActivityTemplates][aiActivityTemplates]], by
+base, [[https://github.com/bxObjects/aiActivityTemplates][aiActivityTemplates]], by
 =aiActivityAssemble.cs=, and projects are set up from that base by =aiActivity.cs=. Both commands come
 with the engine, [[https://github.com/bisos-pip/aiActivity][bisos.aiActivity]], whose README describes
 the model as a whole.
@@ -38,9 +38,9 @@ The workflow figures are in the engine repo, under =py3/images/=.
 Clone the three repos side by side and assemble the base:
 
 #+begin_src bash
-git clone https://github.com/bxexamples/aiTemplates-workFlow
-git clone https://github.com/bxexamples/aiTemplates-DE
-git clone https://github.com/bxexamples/aiActivityTemplates
+git clone https://github.com/bxObjects/aiTemplates-workFlow
+git clone https://github.com/bxObjects/aiTemplates-DE
+git clone https://github.com/bxObjects/aiActivityTemplates
 aiActivityAssemble.cs -i assemblyCheck --base=./aiActivityTemplates
 #+end_src
 

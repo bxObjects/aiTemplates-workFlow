@@ -21,7 +21,7 @@ what only this session knows.
    only unstaged changes, show the `git add` that stages this session's files there.
 6. Read-only: never stage, commit or push.
 7. When there is something to commit, end by offering =/bx-git-commit-walk=, which takes the user
-   through these repos one at a time in their Blee's magit.
+   through these repos one at a time in their editor.
 
 If the session's record is incomplete (e.g. after compaction), say which repos you are
 unsure about rather than guessing.

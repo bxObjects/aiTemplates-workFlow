@@ -268,7 +268,7 @@ Setting =userConfig_set= is only needed when neither canonical path
 applies --- e.g., an organization's fork of the templates at a custom path.
 
 The engine currently ships two /reference/ template trees --- BISOS
-defaults and the public =bxexamples/aiActivityTemplates= --- plus
+defaults and the public =bxObjects/aiActivityTemplates= --- plus
 whatever private forks users maintain. All share the same directory
 layout so activities are portable across trees.
 
@@ -359,7 +359,7 @@ This file describes the /model/. For other information:
   reference: see the =bisos.aiActivity= package README at
   https://github.com/bisos-pip/aiActivity.
 - /The reference public templates tree/: see
-  https://github.com/bxexamples/aiActivityTemplates.
+  https://github.com/bxObjects/aiActivityTemplates.
 - /How I collaborate with AI in general/ (higher-level workflow,
   not specific to this model): see =AI-WORKFLOW.org= in this
   project.

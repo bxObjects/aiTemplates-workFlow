@@ -27,9 +27,11 @@ This file is maintained by Claude. Updates are typically triggered by the
 
 * Current State
 
+2026-11-01: the three templates repos moved to =/bisos/git/bxRepos/bxObjects/= (new histories).
+
 As of 2026-10-20: this repo is *BISOS-AI-Workflow*, one of the two inputs of an assembled templates
 base (the engine's WorkPlan Stage 18). The other input is =aiTemplates-DE=
-(BISOS-Digital-Ecosystem-Skills). The BISOS base is =bxexamples/aiActivityTemplates=, assembled from
+(BISOS-Digital-Ecosystem-Skills). The BISOS base is =bxObjects/aiActivityTemplates=, assembled from
 the two by =aiActivityAssemble.cs=; =/bisos/apps/defaults/ai-templates= is a link to it. The engine
 that installs and assembles is =bisos-pip/aiActivity=, whose =AI-DevStatus.org= is the main handoff;
 this file covers only what is specific to the workflow input.
@@ -66,7 +68,7 @@ figures were updated (aiUsageWorkflow, aiCommandsSkillsTrees).
 * What Works
 
 - Assembly: after adding, renaming or deleting a file here, run
-  =aiActivityAssemble.cs -i assemblyUpdate --base=/bisos/git/bxRepos/bxexamples/aiActivityTemplates=;
+  =aiActivityAssemble.cs -i assemblyUpdate --base=/bisos/apps/defaults/ai-templates=;
   edits to existing files are live at once (the base links to them). =assemblyCheck= after 5.1:
   =IN SYNC=, 71 links.
 - This repo's own setup: its =AI-WORKFLOW.org=, =AI-Activity.org= and =.claude/= resolve through the
@@ -100,6 +102,10 @@ figures were updated (aiUsageWorkflow, aiCommandsSkillsTrees).
   =plus/bcpg:magitPlus.el=, committed): the same limits in =git-commit-mode=, a confirmation on an
   over-long subject, a narrower log margin, and =c c= offers =.git/CLAUDE_COMMIT_MSG= (renamed
   =.used= after the commit). An existing command was edited: no re-assembly needed.
+
+- The seed WorkPlan carries the empty =b:ai:workflow/driver= dblock at its top, before the
+  particulars (2026-11-01); its writer is Blee's (blee/vscode-claude =dblock-vscode-claude.el=). The
+  layout and its rollout to existing WorkPlans: blee/vscode-claude AI-WorkPlan.org 7.2.
 
 # Local Variables:
 # eval: (setq-local toc-org-max-depth 4)

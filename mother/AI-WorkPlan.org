@@ -4,6 +4,9 @@
 #+OPTIONS: toc:4
 #+TAGS: me ai aiAndMe
 
+####+BEGIN: b:ai:workflow/driver
+####+END:
+
 ####+BEGIN: b:ai:file/particulars
 * AI Working Context
   Working Directory: /bisos/apps/defaults/ai-templates/bystar
@@ -22,16 +25,6 @@ TODO below is the standard first step, or use =/bx-confirm-root= as the automate
 TODOs tagged =:ai:= are assigned to Claude. After completing a TODO, summarize results
 under =----- Results: ------= and mark it DONE.
 
-
-####+BEGIN: b:ai:vscodeClaude/workflowDriver
-*  [[elisp:(org-cycle)][|#Control|]] :: [[elisp:(blee:bnsm:menu-back)][Back]] [[elisp:(toggle-read-only)][read/wr]] | [[elisp:(show-all)][Show-All]]  [[elisp:(org-shifttab)][Overview]]  [[elisp:(progn (org-shifttab) (org-content))][Content]] | [[elisp:(delete-other-windows)][(1)]] | [[elisp:(progn (save-buffer) (kill-buffer))][S&Q]] [[elisp:(save-buffer)][Save]] [[elisp:(kill-buffer)][Quit]] [[elisp:(bury-buffer)][Bury]] [[elisp:(magit)][Magit]] [[elisp:(call-interactively 'b:rg:panels/all)][rg:panels/all]]  [[elisp:(org-cycle)][| ]]
-* AI Emacs VSCode-Claude Workflow
-
-  Working Directory: /bxRepos/bxexamples/aiTemplates-workFlow/mother
-  File: /bisos/git/auth/bxRepos/bxexamples/aiTemplates-workFlow/mother/AI-WorkPlan.org
-  Companion Docs: AI-WORKFLOW.org, AI-DevStatus.org
-
-####+END:
 
 * Overview, Purpose and Context
 

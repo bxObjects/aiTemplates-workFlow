@@ -23,5 +23,5 @@ Scope: ONLY what this session changed --- the user has other tools for the whole
    If the user agrees, fill them; never stage, commit or push.
 7. End with one line: either "nothing left --- you can close this session", or the remaining
    steps in order (fills, then the commits, e.g. via =/bx-git-commit-msg <repo>=). When repos are
-   left to commit, offer =/bx-git-commit-walk=: it opens each one's magit in the user's Blee in
-   turn (with a live partner Blee; see that command).
+   left to commit, offer =/bx-git-commit-walk=: it opens each one in the user's editor in turn
+   (with an opener configured; see that command).

@@ -25,7 +25,7 @@ refuses a path present in both inputs. `settings.json` lives in the workflow tre
 ## 1. Edit in the workflow tree
 
 - Edit `aiTemplates-workFlow/mother/_claude/commands/<name>.md` in the clone (on a BISOS host,
-  `/bisos/git/bxRepos/bxexamples/aiTemplates-workFlow/...` until it is its own repository).
+  `/bisos/git/bxRepos/bxObjects/aiTemplates-workFlow/...`).
 - An edit to an existing command is seen at once by every base that links this clone, and so by every
   project initiated from those bases. Say so before a risky edit.
 - Do not edit through a base (`<templatesBase>/mother/_claude/commands/...`): an editor writes through the
@@ -64,8 +64,8 @@ aiActivityAssemble.cs -i assemblyDiff   --base=<templatesBase>   # read-only: wh
 aiActivityAssemble.cs -i assemblyUpdate --base=<templatesBase>   # link the new, remove the old
 ```
 
-- On a BISOS host the bases are `bisos/defaults/ai-templates`, `bxexamples/aiActivityTemplates` and any
-  organization's base (e.g. a fork's `aiActivityTemplates`). `assemblyCheck` and `assemblyDiff` write
+- On a BISOS host the bases are `bisos/defaults/ai-templates` (a link to
+  `bxObjects/aiActivityTemplates`) and any organization's base (e.g. a fork's `aiActivityTemplates`). `assemblyCheck` and `assemblyDiff` write
   nothing: running them to report is fine. **Updating a base is the maintainer's to run**; offer the
   command, do not run it unless asked. It never commits.
 - Then the workflow tree's own commit and push; other hosts get the change by `git pull` in their clone,

@@ -17,6 +17,9 @@
 #   Templates: /bisos/git/auth/bxRepos/bisos/defaults/ai-templates
 #   Command:   /bisos/venv/py3/devbin/aiActivity.cs -i initiateSub --activity=aiActivity
 
+####+BEGIN: b:ai:workflow/driver
+####+END:
+
 ####+BEGIN: b:ai:file/particulars
 * AI Working Context
   Working Directory: /bisos/git/auth/bxRepos/bxexamples/aiTemplates-workFlow

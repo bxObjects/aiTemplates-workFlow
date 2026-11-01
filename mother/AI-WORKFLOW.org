@@ -189,7 +189,12 @@ with these =bx-= commands available inside Claude:
 |                    | up the user's edits); current state, open TODOs, what's next. |
 |                    | A work-loop command: next TODO, or resuming after a break.    |
 |--------------------+---------------------------------------------------------------|
-| /bx-done <anchor>  | Mark the TODO with <<anchor>> as DONE and write AI Results.   |
+| /bx-todo-do        | Work on the TODO with <<anchor>> (the argument): read it from |
+|                    | disk, restate it and the plan; :ai: proceeds, others wait for |
+|                    | agreement; writes its Results. Never marks it DONE.           |
+|--------------------+---------------------------------------------------------------|
+| /bx-todo-done      | Mark the TODO with <<anchor>> as DONE; complete its Results.  |
+|                    | Was /bx-done.                                                 |
 |--------------------+---------------------------------------------------------------|
 | /bx-archive-update | Move DONE subtrees to AI-WorkPlan.org_archive (org-archive).  |
 |                    | Optional arg limits which. Advises on facts recorded nowhere  |
@@ -336,7 +341,7 @@ tree --- meant to stay pristine and read-only from a project's
 perspective --- out of the write path; all the churn of a growing ledger
 lands in the binder repo instead. A templates tree that doesn't want this
 indirection can instead make =mother/AI-Outputs.org= a real (non-symlinked)
-file directly; =bxexamples= is expected to do this rather than depend on a
+file directly; a fork outside BISOS is expected to do this rather than depend on a
 BISOS-internal binder repo.
 
 Entries use not-done keywords beyond plain =TODO=: =WORKAROUND= (broken,
@@ -369,7 +374,7 @@ that I expect to have been imported has been imported. Work plan can follow afte
 Location of AI Templates is determined by the --templates parameter of aiActivity.c which is a
 persistent parameter.
 
-Dfeault AI Templates are kept at: https://github.com/bxexamples/aiActivityTemplates
+Dfeault AI Templates are kept at: https://github.com/bxObjects/aiActivityTemplates
 These are to be customized.
 
 The tool itself is developed as an AI collaborative project: https://github.com/bisos-pip/aiActivity

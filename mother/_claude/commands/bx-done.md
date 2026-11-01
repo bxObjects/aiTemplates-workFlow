@@ -1,5 +1,5 @@
-Mark the TODO with anchor <<$ARGUMENTS>> as DONE in AI-WorkPlan.org.
+Renamed to /bx-todo-done; this alias does the same and will be removed.
 
-1. Find the TODO heading containing <<$ARGUMENTS>>.
-2. Change TODO to DONE.
-3. Write a succinct summary under "----- AI Results: ------" of what was accomplished.
+Read =.claude/commands/bx-todo-done.md= of the session's working directory with the Read tool and do
+exactly what it says, with these arguments: $ARGUMENTS
+Begin the response with one line: "/bx-done is now /bx-todo-done."

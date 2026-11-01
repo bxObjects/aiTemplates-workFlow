@@ -1,0 +1,386 @@
+#+title: AI-WORKFLOW --- My Collaborative AI Development Workflow
+#+DATE: <2026-06-10 Wed 13:54>
+#+AUTHOR: Mohsen BANAN
+#+OPTIONS: toc:4
+#+TAGS: me ai aiAndMe
+
+This is an overview of my collaborative AI development workflow. It is
+generalized and not specific to any particular activity. I use it for
+developing and updating documents, books and presentations (usually with LaTeX),
+software development in Python and elisp or even short notes like this one.
+
+For each of those activities I maintain a set of starting point templates.
+My workflow is mostly the same for starting a new project or extending an existing project.
+
+In my case, I use Claude inside of emacs (with claude-code.el) and assume that
+org-mode is available. Most org-mode features are also available in VSCode
+through the Org-vscode extension --- but I don't use that much (emacs is of
+course much better). I use org-mode heavily for its mark-down, outlining,
+cross-referencing, TODO-lists, agenda, scheduling and archiving capabilities. I
+use the TODOs list feature to assign tasks to AI (Claude) and to myself. After
+completing the task, I ask Claude to summarize it, mark it as done and archive
+it.
+
+** How These Files Are Set Up
+
+The AI collaboration files in any given project/repo are installed by
+=aiActivity.cs=, a PyCS command shipped as the =bisos.aiActivity=
+pip package (installable via =pipx install bisos.aiActivity=;
+sources at https://github.com/bisos-pip/aiActivity).
+
+Before starting Claude in a new project directory, the developer runs:
+
+: aiActivity.cs -i initiate --activity=<activity>
+
+For a slim overlay in a subproject of an already-initiated repo, use:
+
+: aiActivity.cs -i initiateSub --activity=<activity>
+
+where =<activity>= matches a subdirectory of the templates base (e.g. =bisos-pip=, =xu-single=,
+=blee-panels=, =lcnt=). A templates base is assembled from two inputs: this tree,
+=aiTemplates-workFlow= (the workflow, the same for everyone), and an =aiTemplates-DE= (an
+ecosystem's skills and activities), by =aiActivityAssemble.cs= (bisos.aiActivity).
+
+This installs:
+- Symlinks for constant files (=CLAUDE.md=, =AI-WORKFLOW.org=) from =mother/=
+- A symlink for =AI-Activity.org= from =<activity>/= (activity-specific conventions)
+- Local copies of =AI-DevStatus.org= and =AI-WorkPlan.org= from =<activity>/=
+  (with =b:ai:file/particulars= dblocks expanded via =bisos.pyDblock= to reflect the target directory)
+- =.claude/= directory with =settings.json= (pre-authorized commands), =commands/=
+  (=bx-= slash commands), and =skills/= (the activity's =_skills/=, else =mother/_skills/=)
+
+When =initiateSub= is used instead of =initiate=, only =CLAUDE.md= (slim overlay
+imports only the local trio), =AI-Activity.org= (symlinked), =AI-DevStatus.org=,
+and =AI-WorkPlan.org= are installed. The invariants (=AI-WORKFLOW.org=,
+=.claude/=) are inherited from a parent directory via Claude Code's
+=CLAUDE.md= walk-up. =initiateSub= refuses if no initiated parent is found.
+
+This means: when you (Claude) see this file in a project, the symlinks point back to
+the templates base's =mother/= (whose entries are links into the two inputs), and the local copies
+of =AI-DevStatus.org= and =AI-WorkPlan.org= are project-specific and editable.
+
+A figure of the setup lifecycle (discover, install, inspect, trim, maintain) is in the
+=bisos.aiActivity= repository:
+[[https://github.com/bisos-pip/aiActivity/blob/main/py3/images/aiStartupWorkflow.png][py3/images/aiStartupWorkflow.png]].
+
+** The AI-Activities of a Session: Root and Here
+
+A Claude session holds a hierarchy of AI-Activities. Its *root* is the session's working directory ---
+in VS Code, the window's folder --- with the top =CLAUDE.md=, confirmed by =/bx-confirm-root=. Other
+activities join it during the session with =/bx-confirm-here <dir>=: an =initiateSub= sub of the root
+(homogeneous or heterogeneous, below), or a separately initiated activity elsewhere. On the install
+side the pair is =initiate= (a root) and =initiateSub= (a sub).
+
+*Emacs is optional.* An AI-Activity is conducted completely inside VS Code (or any Claude front end):
+=CLAUDE.md=, the WorkPlan, the =bx-= commands and the skills never require Emacs. The Blee layer
+(=bx-blee/vscode-claude=) adds a partnership --- Emacs sends prompts into a session, Claude reaches
+Emacs by =emacsclient= --- only when a prompt names that Emacs (=/bx-confirm-root emacs=<socket>=)
+or the user asks; it does not interfere with pure VS Code use.
+
+** Homogeneous and Heterogeneous AI-Activities
+
+An AI-Activity is *Homogeneous* when every directory in it references the same templates tree --- the
+default. It is *Heterogeneous* when a subtree or a repo references a *different* templates tree: for
+example a repo initiated from an organization's own templates tree, with a subproject (an Astro PALS
+site) =initiateSub=-d from the BISOS templates (=--activity=astro-site=). Heterogeneous is always explicit
+(=--templates=, or a per-directory =.aiActivity.cs/fps/templates/value=). The =bisos.aiActivity= README,
+"AI-Activity Topology", has the details and the orthogonal Hierarchical / Lateral dimension.
+
+What a heterogeneous sub takes from where:
+
+| From the sub's own templates tree         | From the root (=CLAUDE.md= walk-up)                          |
+|-------------------------------------------+--------------------------------------------------------------|
+| =AI-Activity.org= (symlink)               | =AI-WORKFLOW.org=, =AI-Outputs.org=                          |
+| =AI-DevStatus.org=, =AI-WorkPlan.org=     | =.claude/settings.json=, =.claude/commands/= (the =bx-= set) |
+| =.claude/skills/= --- *all of its skills* |                                                              |
+
+*Skills follow the templates tree, as a whole.* A sub from another tree gets its own
+=<sub>/.claude/skills -> <its tree>/mother/_skills=: every skill of that tree, not a selection, because
+the skills of a tree lean on each other. The root's skills stay available too.
+
+*Requirement: in a heterogeneous sub, every skill of the sub's tree is available.* No plugin and no
+engine change are needed (tested 2026-10-19, VS Code extension, in a repo of one templates tree with
+an astro-site sub of the BISOS tree):
+- Claude Code's nested discovery does load the sub's =.claude/skills= (bare names, plus
+  =<sub>:<name>= where a root skill has the same name), but only after Claude touches files in the sub
+  with its *Read / Edit tools*; reading them through Bash (=cat=) never triggers it. It was not
+  immediate: the first Read brought in the sub's =CLAUDE.md=, the skill listing came some Reads later.
+  A Read by an aliased path (a symlinked path to the same directory) did not trigger it in one test.
+- =/add-dir= is not available in VS Code.
+
+For Claude:
+- Before working in a heterogeneous sub, run =/bx-confirm-here= on it (or =/bx-confirm-root= when the
+  session starts there), and read the sub's chain with the Read tool, by its real path, so that
+  discovery fires.
+  Also read the YAML frontmatter (=name=, =description=) of every =SKILL.md= under
+  =<sub>/.claude/skills/=, so the skills are available even before (or without) discovery.
+- Until a skill shows up in the session's own listing, treat the frontmatter list as available skills:
+  when a task matches a description, Read that =SKILL.md= by path through =<sub>/.claude/skills/=
+  before acting, and say so --- do not proceed from general knowledge. Once listed, use the Skill tool.
+- Which tree a directory uses: its =AI-Activity.org= symlink target, or
+  =.aiActivity.cs/fps/templates/value=.
+
+Status (2026-10-19): =initiateSub= does not yet install the sub's =.claude/skills=; it is linked by hand.
+Whether a session started /in/ the sub loads them at startup was not tested, and the test was dropped
+(sessions start at the repo root); the reading rule applies either way. The =bx-confirm-root= /
+=bx-confirm-here= commands carry the reading step (in the BISOS templates since 2026-10-19; this
+tree's commands are copies of the BISOS set, see "Claude Slash Commands").
+
+** File Naming Convention
+
+All-caps filenames (=CLAUDE.md=, =AI-WORKFLOW.org=) are constant —
+always symlinked from =mother/=, never edited in the project.
+Mixed-case filenames (=AI-Activity.org=, =AI-DevStatus.org=, =AI-WorkPlan.org=) are
+local and editable — either symlinked from =<activity>/= or safe-copied for the project.
+
+Here is a list of the AI collaboration files that I maintain for each project/repo.
+The third column is one of: const(constant), ai, you, u+ai --- which says who produces the file.
+
+|--------------------+------------------------------------------------------------------+-------|
+| ./CLAUDE.md        | Default for Claude. Imports ./AI-WORKFLOW.org, ./AI-Activity.org,| const |
+|                    | ./AI-DevStatus.org, and ./AI-WorkPlan.org --- the whole context  |       |
+|                    | chain a Claude Code session loads on startup.                    |       |
+|--------------------+------------------------------------------------------------------+-------|
+| ./AI-WORKFLOW.org  | A description of this workflow, for the AI-Assistant's benefit.  | const |
+|--------------------+------------------------------------------------------------------+-------|
+| ./AI-Outputs.org   | Central, cross-project ledger of action items and defects found  | const |
+|                    | during AI collaboration --- see its own section below. Optional: |       |
+|                    | present only if the templates tree ships =mother/AI-Outputs.org=.|       |
+|--------------------+------------------------------------------------------------------+-------|
+| ./AI-Activity.org  | Activity-specific guidance: repo purpose, frameworks,            | you   |
+|                    | conventions, and any relevant context for this activity.         |       |
+|--------------------+------------------------------------------------------------------+-------|
+| ./AI-DevStatus.org | After every major interaction, I ask Claude to update this with  | ai    |
+|                    | details of what it has understood and where the project stands   |       |
+|                    | This allows me (or others) to continue the work on a different   |       |
+|                    | machine (which does not have Claude's memory)                    |       |
+|--------------------+------------------------------------------------------------------+-------|
+| ./AI-WorkPlan.org  | This is where I drive the project.                               | u+ai  |
+|                    | I break down my interactions into "Stages". Each Stage has a set |       |
+|                    | of TODOs that I work with Claude to accomplish.                  |       |
+|--------------------+------------------------------------------------------------------+-------|
+| ./xx.org_archive   | From time to time I move Done subtrees to org archive files      | u+ai  |
+|                    | (via org-mode's =org-archive-subtree=, standard =C-c C-x C-a=).  |       |
+|                    | The =bisos.aiActivity= repo ships a real                    |       |
+|                    | =AI-WorkPlan.org_archive= alongside =AI-WorkPlan.org= as a       |       |
+|                    | working example of the pattern.                                  |       |
+|--------------------+------------------------------------------------------------------+-------|
+
+
+The goal is to establish a precise, evolving and maintainable long-context across sessions and machines.
+
+** Claude Slash Commands
+
+Each project initialized with =aiActivity.cs= gets a =.claude/commands/= directory
+with these =bx-= commands available inside Claude:
+
+|--------------------+---------------------------------------------------------------|
+| /bx-confirm-root   | Enumerate imported files and confirm understanding of context |
+|                    | of the session's root AI-Activity. Use at the start of every  |
+|                    | session. Optional args (dir=, emacs=, register=<fn>) are for  |
+|                    | an editor; without them, nothing editor-related. Was          |
+|                    | /bx-confirm0.                                                 |
+|--------------------+---------------------------------------------------------------|
+| /bx-confirm-here   | Like /bx-confirm-root, but oriented on wherever you've just   |
+|                    | navigated to in the IDE (or an explicit path), not cwd. Joins |
+|                    | that AI-Activity to the session's hierarchy, mid-session.     |
+|--------------------+---------------------------------------------------------------|
+| /bx-status-read    | Re-read AI-DevStatus.org and AI-WorkPlan.org from disk (picks |
+|                    | up the user's edits); current state, open TODOs, what's next. |
+|                    | A work-loop command: next TODO, or resuming after a break.    |
+|--------------------+---------------------------------------------------------------|
+| /bx-done <anchor>  | Mark the TODO with <<anchor>> as DONE and write AI Results.   |
+|--------------------+---------------------------------------------------------------|
+| /bx-archive-update | Move DONE subtrees to AI-WorkPlan.org_archive (org-archive).  |
+|                    | Optional arg limits which. Advises on facts recorded nowhere  |
+|                    | else, but writes only AI-WorkPlan.org + the archive.          |
+|--------------------+---------------------------------------------------------------|
+| /bx-archive-read   | Read archived work back in during a session (read-only).      |
+|                    | No arg = index grouped by stage; arg = matching subtrees.     |
+|--------------------+---------------------------------------------------------------|
+| /bx-status-update  | Rewrite AI-DevStatus.org to reflect current state (a rewrite: |
+|                    | history is in git). Use after a stage or before a release.    |
+|--------------------+---------------------------------------------------------------|
+| /bx-session-verify | Before closing a session: are this session's AI-DevStatus,    |
+|                    | AI-WorkPlan and README updates done, cross-references valid,  |
+|                    | repos committed? Reports gaps, fills them only on agreement.  |
+|--------------------+---------------------------------------------------------------|
+| /bx-initiate       | Run aiActivity.cs then read the full import chain.            |
+|                    | For non-Emacs workflows only — Emacs reads CLAUDE.md          |
+|                    | automatically at startup, making this redundant.              |
+|--------------------+---------------------------------------------------------------|
+| /bx-git-commit-msg | Draft a commit message for one repo's staged changes, write   |
+|                    | it to its .git/CLAUDE_COMMIT_MSG. Optional arg = repo name or |
+|                    | path (default: cwd's repo). Claude never commits — the user   |
+|                    | runs =git commit -t .git/CLAUDE_COMMIT_MSG= themselves.         |
+|                    | Format "69/90": subject <= 69, body at 90; trailers TODOs:    |
+|                    | (WorkPlan anchors), Requires:, Co-Authored-By:.               |
+|--------------------+---------------------------------------------------------------|
+| /bx-git-uncommitted-list | List the repos THIS SESSION changed that still have     |
+|                    | staged/unstaged/untracked work or unpushed commits, with the  |
+|                    | commit order when one depends on another. Read-only. For all  |
+|                    | repos on the host, use magit.                                 |
+|--------------------+---------------------------------------------------------------|
+| /bx-git-commit-walk | Commit those repos one at a time in the user's editor: opens |
+|                    | each with the user's gitOpener setting (aiActivity.cs         |
+|                    | userConfig) or open=; the user stages, sends                  |
+|                    | /bx-git-commit-msg, commits, says "next". Each message ends   |
+|                    | with the next repo's path. No opener: just the list.          |
+|--------------------+---------------------------------------------------------------|
+| /bx-ai-outputs     | Read (index) or capture into AI-Outputs.org, the central      |
+|                    | cross-project findings ledger. No arg = index; arg = capture. |
+|--------------------+---------------------------------------------------------------|
+| /bx-context-trim   | Estimate the NEXT session's startup tokens (runs              |
+|                    | aiActivity.cs -i startupClaudeTokens) and propose trims.      |
+|                    | Optional arg = target budget. Edits only after confirmation.  |
+|                    | For the CURRENT session, use the built-in /context.           |
+|--------------------+---------------------------------------------------------------|
+
+These commands are the workflow, not an activity's: one set for every activity, with no
+per-activity override. They live in this tree, =aiTemplates-workFlow=, which every templates base
+includes by that name (a clone anywhere, linked into the base); an organization's own skills and
+activities go into its =aiTemplates-DE=, and cannot override a command (a path in both inputs is
+refused when the base is assembled). A project's =.claude/commands= points at its base's
+=mother/_claude/commands/= (=aiActivity.cs= decides at =initiate= and =refresh=). Editing, renaming
+or adding a command: the =bx-ai-commands-authorship= skill.
+
+The figures of the workflow are in the =bisos.aiActivity= repository, =py3/images/=
+([[https://github.com/bisos-pip/aiActivity/tree/main/py3/images]]): these commands in session order,
+with the subject each one writes (=aiUsageWorkflow=, and its read/write table =aiUsageWorkflow.org=),
+and the commands and skills as two trees, BISOS-AI-Workflow (=aiGeneralTree=) and
+BISOS-Digital-Ecosystem-Skills with "load first" prerequisites (=aiEcosystemTree=). The engine's
+README shows them all.
+
+Note: in the workflow, CLAUDE.md is read automatically at startup.
+=/bx-confirm-root= is optional but useful as an explicit session-start confirmation.
+
+** Archiving And Retrieval --- The Round Trip
+
+Everything in the CLAUDE.md import chain is loaded on /every/ session, so a
+=AI-WorkPlan.org= fat with finished work is a recurring cost for a one-time
+benefit. Archiving converts it. =/bx-archive-update= is the cut; =/bx-archive-read= is
+the way back.
+
+The pair matters more than either half. A cut only needs to be lossless if it is
+irreversible --- because =/bx-archive-read= can retrieve archived subtrees on
+demand mid-session, =/bx-archive-update= can stay narrow and you can archive
+aggressively. Archive files are deliberately NOT in the import chain: archived
+content is invisible to Claude until you ask for it. That is the point, and it
+means the archive serves you and git history rather than Claude's default context.
+
+Division of labour, which should not blur:
+
+- =/bx-archive-update= belongs to the org-mode TODO lifecycle (TODO → DONE → archived)
+  and writes only =AI-WorkPlan.org= and its archive file.
+- =/bx-status-update= owns =AI-DevStatus.org=; promoting a durable fact out of a
+  finished TODO into the handoff document is /its/ job, not the archiver's.
+
+=/bx-archive-update= therefore advises without writing: it reports facts from the
+subtrees it archived that appear in no file a fresh Claude loads, and leaves the
+promotion to you. Watch for /negative results/ in particular --- "we tried X and
+it broke". Durable documents naturally restate what IS (architecture, ports,
+layerings), so positive facts tend to survive archiving on their own, while what
+was tried and rejected has no natural home and is what silently disappears.
+Consider giving =AI-DevStatus.org= an explicit section for them.
+
+When archived material comes back in, treat it as historical as of its =CLOSED=
+date and not since re-verified. Where it conflicts with =AI-DevStatus.org=,
+=README.org= or the current source, current state wins.
+
+** Documentation Outside The Import Chain
+
+Everything CLAUDE.md imports is loaded every session. Nothing else is. That "nothing
+else" routinely includes the authoritative record of a decision --- a Blee panel under
+=/bisos/panels/=, something in blee-binders, a doc in a sibling repo, a
+=fullUsagePanel-en.org= that a source file names as its own documentation of record.
+Writing there is often exactly right. But a fresh Claude will not see any of it unless
+something inside the chain points at it.
+
+This is the archiving problem arriving from the other direction. Archiving removes
+something Claude used to load; writing out of chain never put it there. Both end at the
+same place --- a durable decision that is invisible by default --- and the same kind goes
+quietest: the deferred and the negative. "We will do X once Y is dropped." "We tried X
+and it broke." Architecture documents naturally restate what IS, so positive facts tend
+to resurface on their own. A plan contingent on a future condition has no such home.
+
+Rule: when a decision, plan or finding is written to a file outside the import chain,
+record a pointer in =AI-DevStatus.org= --- one line giving what was decided, where the
+record lives, and what condition would make it actionable. The pointer is not a copy.
+The out-of-chain file stays authoritative; the pointer only has to be enough for a fresh
+Claude to know the record exists and go read it. Promoting it is =/bx-status-update='s
+job, the same way it owns promotion out of archived TODOs.
+
+Claude should offer this at the time of writing out of chain, not as cleanup later.
+
+Two properties are worth carrying in the pointer, because they are expensive to
+rediscover and cheap to note:
+- whether the out-of-chain file is under version control --- some panel and binder trees
+  are not, so edits there have no revert path and warrant a backup first
+- the date its contents were last verified against a live system
+
+** AI-Outputs.org --- Cross-Project Findings Ledger
+
+=AI-Outputs.org= is a central, cross-project ledger of action items,
+defects and findings that Claude turns up while working --- items whose
+scope is *global*, not specific to whichever project they happened to be
+discovered in (e.g. a bug in a shared framework package, found while
+working a completely unrelated project).
+
+Like =AI-WORKFLOW.org=, it lives in =mother/= and is symlinked next to
+=CLAUDE.md= in each initiated project --- one file, many projects, edits
+visible everywhere immediately. Unlike =AI-WORKFLOW.org=, in BISOS
+=mother/AI-Outputs.org= is itself a second symlink pointing *out* of the
+templates tree, into a separate blee-binders repo
+(=blee-binders/evolution/aiActivity-outputs/=). This keeps the templates
+tree --- meant to stay pristine and read-only from a project's
+perspective --- out of the write path; all the churn of a growing ledger
+lands in the binder repo instead. A templates tree that doesn't want this
+indirection can instead make =mother/AI-Outputs.org= a real (non-symlinked)
+file directly; =bxexamples= is expected to do this rather than depend on a
+BISOS-internal binder repo.
+
+Entries use not-done keywords beyond plain =TODO=: =WORKAROUND= (broken,
+*and* a workaround is documented and in use --- still needs an upstream
+fix; highest broadcast value, since these save the next Claude from
+rediscovering the breakage) and =INFO= (captured knowledge, no action
+required). Each actionable entry carries a =:REPO:= property naming where
+the fix belongs, since these items are found in one repo and fixed in
+another --- without it, dispatch becomes guesswork once the context is
+gone.
+
+Deliberately *not* =@=-imported by =CLAUDE.md=: auto-loading would give
+=WORKAROUND= entries their full broadcast value, but at the cost of every
+project carrying the whole ledger every session, and the found-rate across
+BISOS tends to exceed the fix-rate. Read it via =/bx-ai-outputs= (index
+mode, no argument) or by opening the file directly when relevant, not as
+background context in every session. Capture a new finding the same way,
+with an argument describing it — see =/bx-ai-outputs='s own spec for the
+keyword/=:REPO:= discipline it enforces at capture time.
+
+** Stage 0 of ./AI-WorkPlan.org
+
+Stage 0 of ./AI-WorkPlan.org is to be repeated each time a new instance of claude is used.
+/bx-confirm-root can be used for this. Before getting started with a new Claude I want
+to make sure that I am using the right model and I want to make sure that everything
+that I expect to have been imported has been imported. Work plan can follow after that.
+
+** Location of AI-Templates
+
+Location of AI Templates is determined by the --templates parameter of aiActivity.c which is a
+persistent parameter.
+
+Dfeault AI Templates are kept at: https://github.com/bxexamples/aiActivityTemplates
+These are to be customized.
+
+The tool itself is developed as an AI collaborative project: https://github.com/bisos-pip/aiActivity
+
+** Claude Permissions
+
+Whenever Claude asks the user for permission to run a command, Claude must also
+offer the option to add that permission to =.claude/settings.json= so it is
+pre-authorized for future sessions. Present this as part of the same prompt —
+not as a separate follow-up.
+
+# Local Variables:
+# eval: (setq-local toc-org-max-depth 4)
+# End:

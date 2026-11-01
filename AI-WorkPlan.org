@@ -1,0 +1,336 @@
+#+title: Work Plan
+#+DATE: <2026-06-10 Wed 13:54>
+#+AUTHOR: Mohsen BANAN
+#+OPTIONS: toc:4
+#+TAGS: me ai aiAndMe
+
+# Provenance (installed once by aiActivity.cs --- not regenerated):
+#   Date:      2026-10-20T04:53:57+00:00
+#   User:      bystar
+#   Templates: /bisos/apps/defaults/ai-templates
+#   Command:   /bisos/venv/py3/devbin/aiActivity.cs -i initiate --activity=aiActivity --templates=/bisos/apps/defaults/ai-templates
+
+# Stages 2--4 moved here on 2026-10-20 (Stage 5) from the old BISOS templates base's own WorkPlan,
+# /bisos/git/bxRepos/bisos/defaults/ai-templates.k1/AI-WorkPlan.org (its history: the bisos/defaults
+# repo, path ai-templates/AI-WorkPlan.org). Its earlier provenance:
+#   Date:      2026-10-08T22:49:11+00:00
+#   Templates: /bisos/git/auth/bxRepos/bisos/defaults/ai-templates
+#   Command:   /bisos/venv/py3/devbin/aiActivity.cs -i initiateSub --activity=aiActivity
+
+####+BEGIN: b:ai:file/particulars
+* AI Working Context
+  Working Directory: /bisos/git/auth/bxRepos/bxexamples/aiTemplates-workFlow
+  File: /bisos/git/auth/bxRepos/bxexamples/aiTemplates-workFlow/AI-WorkPlan.org
+  Activity: aiActivity
+  Companion Docs: AI-WORKFLOW.org, AI-Activity.org, AI-DevStatus.org
+####+END:
+
+This Work Plan file drives the AI collaborative development.
+Interactions are broken down into "Stages". Each Stage has a set
+of TODOs that I work with Claude to accomplish.
+
+This repo is the *BISOS-AI-Workflow* input of an assembled templates base (the engine's WorkPlan
+Stage 18): =mother/= (the workflow files, commands, the workflow skills, seeds) and the =aiActivity=,
+=basic= and =custom= activities. Its own root files (this file, =CLAUDE.md=, =.claude/=, ...) are
+ignored by =aiActivityAssemble.cs=. The engine is =bisos-pip/aiActivity=; the other input is
+=aiTemplates-DE=.
+
+Note to a fresh Claude: read this file together with AI-WORKFLOW.org,
+AI-Activity.org and AI-DevStatus.org to orient yourself. The =<<Context Confirmation>>=
+TODO below is the standard first step, or use =/bx-confirm-root= as the automated equivalent.
+TODOs tagged =:ai:= are assigned to Claude. After completing a TODO, summarize results
+under =----- Results: ------= and mark it DONE.
+
+* Stage 0: Confirm AI's Understanding of This Repo's Context
+
+Goal: Confirm AI's understanding of the context and capture that in [[Context Confirmation]] TODO.
+
+
+* Stage 0 TODOs
+** +
+** LOOP [#A] <<Context Confirmation>> for AI (typically triggered by /bx-confirm-root) :aiAndMe:
+SCHEDULED: <2026-06-09 Tue>
+Must be repeated each time a new Claude instance is started here.
+Based on the series of files starting from CLAUDE.md in this repo,
+describe succinctly what you have understood.
+Enumerate explicitly which files you have imported and which you have considered.
+Prompt the user to confirm that the desired/appropriate model (/model) is being used for this project.
+Since this is to be repeated, leave the todo tag as LOOP.
+** -
+
+* Stage 2: Consistent and Proper Propagated Templates
+
+Goal: Consistent and Proper Templates
+
+Items 2.1--2.4 were moved here on 2026-10-09 from the aiActivity repo's
+WorkPlan (14.6, 14.7, 14.8, 14.11), since the changes are made in this repo.
+/Moved again 2026-10-20 (Stage 5) from the old BISOS base into this workflow input./ The seed
+=AI-WorkPlan.org= these TODOs are about is =mother/AI-WorkPlan.org=, here; the DE layer's activity
+seeds are tracked in =aiTemplates-DE='s WorkPlan.
+
+
+* Stage 2 TODOs
+** +
+** TODO [#A] Make sure that all the AI-WorkPlan.org files have <<org-log-done>> :ai:
+SCHEDULED: <2026-06-09 Tue>
+org-log-done should be there as:
+# Local Variables:
+# eval: (setq-local toc-org-max-depth 4)
+# eval: (setq-local org-log-done 'time)
+# End:
+----- AI Results: ------
+Checked 2026-10-20: =mother/AI-WorkPlan.org=, the only seed WorkPlan in this input, has it. The DE
+input's =bisos-core/AI-WorkPlan.org= does not: moved there as its 1.2. Not marked DONE: awaiting review.
+
+** TODO [#A] Front text of custom/AI-Activity.org needs to be re-written :aiAndMe:
+   SCHEDULED: <2026-06-09 Tue>
+   It is overly verbose now. It should target Claude as audiance.
+   ----- AI Results: ------
+
+** TODO [#A] Ensure consistency of Template files :aiAndMe:
+   SCHEDULED: <2026-06-09 Tue>
+   Across here, /bxRepos/bxexamples/aiActivityTemplates/ and propritary projects.
+   ----- AI Results: ------
+   Tracked from the engine side as the Stage 15 LOOP in
+   =bisos-pip/aiActivity/AI-WorkPlan.org= ([[15.1]] there). It lists the
+   2026-10-07 items that are pending propagation to bxexamples and the
+   forks.
+   2026-10-20: since the engine's Stage 18 there is one BISOS base (=bxexamples/aiActivityTemplates=,
+   assembled from this repo and =aiTemplates-DE=; =/bisos/apps/defaults/ai-templates= links to it), so
+   "here" and bxexamples can no longer diverge. What is left is the forks.
+
+** TODO [#A] <<2.1>> Update mother AI-WorkPlan.org--  In all new templates with TODO replace "AI Results:" to "Results:" :aiAndMe:
+SCHEDULED: <2026-10-01 Thu 10:23>
+:PROPERTIES:
+:ORIGIN: Mohsen
+:REPO: this
+:BASE: this
+:FOUND: 2026-09-11
+:END:
+
+No need to keep backwards compatibility. This is just a convention that makes the results clear as
+for me as well. Not just AI. We could even have ME Results, when by choice I do it.
+----- Results: ------
+Checked 2026-10-20 (Claude): =mother/AI-WorkPlan.org= uses =----- Results: ------= (its intro and its
+1.1 example). The DE seed =bisos-core/AI-WorkPlan.org= still says =AI Results:=: its 1.2.
+
+** TODO [#A] <<2.2>> In all new templates with TODO add PROPERTIES like this one and for AI-Outputs :aiAndMe:
+SCHEDULED: <2026-10-01 Thu 10:23>
+:PROPERTIES:
+:ORIGIN: Mohsen
+:IMPORTANCE: Low
+:REPO: this
+:BASE: this
+:FOUND: <2026-10-01 Thu 10:32>
+:END:
+
+Add concept of ORIGIN as AI-Outputs.org
+----- Results: ------
+Checked 2026-10-20 (Claude): =mother/AI-WorkPlan.org='s 1.1 has the drawer (=ORIGIN=, =IMPORTANCE=,
+=REPO=, =BASE=, =FOUND=). Not checked: the AI-Outputs side. The DE seed has no drawer: its 1.2.
+
+** TODO [#A] <<2.3>> Update mother AI-WorkPlan.org-- Make 0.1 be LOOP :aiAndMe:
+SCHEDULED: <2026-10-01 Thu 10:23>
+:PROPERTIES:
+:ORIGIN: Mohsen
+:IMPORTANCE: Low
+:REPO: this
+:BASE: this
+:FOUND: <2026-10-01 Thu 10:32>
+:END:
+
+Consider this one as example.
+----- Results: ------
+Checked 2026-10-20 (Claude): =mother/AI-WorkPlan.org='s Context Confirmation is a LOOP (this file's,
+installed from it, shows it). The DE seed's is not: its 1.2.
+
+** TODO [#B] <<2.4>> Command naming convention: object first, then verb :aiAndMe:
+SCHEDULED: <2026-10-07 Wed>
+:PROPERTIES:
+:ORIGIN: Mohsen
+:IMPORTANCE: Low
+:REPO: this (templates commands) + aiActivity repo (CLI)
+:BASE: this
+:FOUND: <2026-10-07 Wed>
+:END:
+
+Convention, adopted with =/bx-context-trim= (aiActivity WorkPlan 16.4): a command name is the
+subject or object first, then the verb. You know the domain you're in, and
+completion offers the verbs. (=aiSuspend= / =aiResume=, which followed it, were retired 2026-10-08.)
+
+Names that don't follow it today:
+- Slash commands:
+  - =/bx-update-status= → =/bx-status-update=
+  - =/bx-import-archive= → =/bx-archive-import=
+  - =/bx-commit-msg= reads as an object; a verb could be added
+    (=/bx-commit-msg-write=), though that may be over-applying the rule
+- CLI: =listClaudesPath= → e.g. =claudesPathList=
+
+Renames touch the templates tree, every =AI-WORKFLOW.org= reference, the
+README, and users' habits. Decide which are worth it, rename in one pass,
+and document the convention in =AI-WORKFLOW.org=.
+----- Results: ------
+- 2026-10-11 (Mohsen, from a bisos-pip/kafka session): =/bx-commit-msg= renamed to
+  =/bx-git-commit-msg= (a =bx-git-= group; still verbless, as noted above), now taking the
+  repo as an optional argument. No stub kept for the old name. New: =/bx-git-uncommitted-list=
+  (object then verb, per the convention) --- the repos the current session changed that still
+  need committing or pushing. Updated: mother/AI-WORKFLOW.org, aiUsageWorkflow.org and its
+  -graphviz.pcs, aiCommandsSkillsTrees-graphviz.pcs, aiActivity README.org; figures re-rendered.
+- 2026-10-11 (Mohsen): =/bx-status= -> =/bx-status-read= (re-reads from disk; moved from
+  session start to the work loop, beside =/bx-import-archive=), =/bx-update-status= ->
+  =/bx-status-update= (stays a full rewrite: AI-DevStatus.org is a current-state handoff,
+  history is in git). New: =/bx-session-verify= (session end, before closing): are this
+  session's DevStatus/WorkPlan/README updates done, cross-references valid, repos committed.
+  A =bx-status-= group, beside =bx-git-=. Remaining from the list above: =/bx-import-archive=
+  -> =/bx-archive-import=, and =listClaudesPath=.
+- 2026-10-11 (Mohsen): =/bx-import-archive= -> =/bx-archive-read= and =/bx-archive= ->
+  =/bx-archive-update= --- a =bx-archive-= group with the same read/update verbs as
+  =bx-status-= (chosen over the =/bx-archive-import= listed above). All slash commands now
+  follow the convention. Remaining: the CLI name =listClaudesPath=.
+- 2026-10-19: the convention now holds in the forks too (a fork synced, bxexamples by hand);
+  the new skill =bx-ai-commands-authorship= states it for future commands. The new engine verbs
+  (=cmndsDiff=, =cmndsSyncPrune=, ...) are subject-first. Still remaining: =listClaudesPath= --- so
+  this TODO stays open.
+** -
+
+* Stage 3: Workflow figures, /bx-context-trim, _nonTemplate_
+
+Goal: Make the AI-Activity workflow visible, and give the templates tree a
+place for material that is not a template. The work was driven from
+=bisos-pip/aiActivity/AI-WorkPlan.org= ([[14.2]], [[14.3]], [[14.13]],
+[[16.4]] there); this records the templates-side result.
+/Superseded 2026-10-20 (engine 18.12)/: =_nonTemplate_/= is gone; the figures live in the engine,
+=bisos-pip/aiActivity/py3/images/=. Kept as history.
+
+* Stage 3 TODOs
+** +
+** DONE [#A] Add /bx-context-trim to mother/_claude/commands :aiAndMe:
+CLOSED: [2026-10-07 Wed]
+----- Results: ------
+=mother/_claude/commands/bx-context-trim.md=:
+- Runs =aiActivity.cs -i startupClaudeTokens=, then proposes trims ranked
+  by tokens saved, each marked local or shared (a shared edit is
+  confirmed separately).
+- Hands off to =/bx-archive= and =/bx-update-status= rather than doing
+  their work itself.
+- Changes nothing without confirmation.
+- No settings change was needed: =aiActivity.cs *= is already
+  pre-authorized.
+- =mother/AI-WORKFLOW.org= has a row for it in the slash-commands table.
+- Named object-first, then verb ("context", then "trim"). The convention
+  is recorded as [[2.4]] (moved here from the engine WorkPlan's 14.11).
+
+** DONE [#A] Create _nonTemplate_/ and the workflow figures :aiAndMe:
+CLOSED: [2026-10-07 Wed]
+----- Results: ------
+- =_nonTemplate_/= is the tree's one escape from the templates concept.
+  The engine excludes it from =examples= and refuses it as =--activity=
+  (=nonActivityDirs= in =aiActivity.cs=).
+- =_nonTemplate_/images/=, each with its =.pcs= source and all rendered
+  outputs:
+  - =aiUsageWorkflow= (+ =aiUsageWorkflow.org=, the full read/write map):
+    using an existing setup.
+  - =aiStartupWorkflow=: creating and shaping a setup.
+  - =aiCommandsSkillsTrees= → =aiGeneralTree= and =aiEcosystemTree=:
+    every command and skill, where it lives, and the "load first"
+    prerequisites.
+- =mother/AI-WORKFLOW.org= points to all of them.
+- The PNGs are copied into the engine repo (=py3/images/fromTemplates/=) for
+  its README.
+- The figures expose a provisioning gap: 15 of the 16 ecosystem skills are in
+  =bisos-pip/_skills/=, so non-=bisos-pip= activities don't see them. See
+  the engine =AI-DevStatus.org=, Known Gaps.
+- Resolved 2026-10-17 without an engine change: all skills moved to one shared
+  set, =mother/_skills/=; the activities that had =_skills/= now symlink it.
+  Recorded in =AI-Outputs.org=. The =aiCommandsSkillsTrees= figures still show
+  the old homes and need a re-render.
+- Re-rendered 2026-10-19 (see Stage 4 below): every skill in =mother/_skills/=.
+** -
+
+* Stage 4: One Command Set; the BISOS-AI-Workflow Layer
+
+Goal: record the templates-side part of the engine WorkPlan's Stage 17 (2026-10-19): the commands are
+one set, edited here and copied into forks; a templates tree is two layers. The work was driven from
+=bisos-pip/aiActivity/AI-WorkPlan.org= (17.6, 17.8, 17.9 there).
+
+* Stage 4 TODOs
+** +
+** TODO [#A] <<4.1>> The =bx-ai-commands-authorship= skill :aiAndMe:
+:PROPERTIES:
+:ORIGIN: Mohsen
+:IMPORTANCE: Medium
+:REPO: this
+:BASE: this
+:FOUND: <2026-10-19 Mon>
+:END:
+----- Results: ------
+Written 2026-10-19 (=mother/_skills/bx-ai-commands-authorship/SKILL.md=, frontmatter checked): edit
+commands here only; the first line of a command file is its slash-menu description; subject-then-verb
+names; after an edit, remind the maintainer to sync forks with =aiActivityCmnds.cs= (never run the
+sync into a fork unasked); the documents that name commands. Not marked DONE: the two trigger checks
+are not done.
+Rewritten 2026-10-20 (engine 18.8) for the assembled bases: it now lives in the workflow input
+(=aiTemplates-workFlow/mother/_skills/=), says to edit commands there, and to re-assemble the bases
+(=aiActivityAssemble.cs=) after adding, renaming or deleting one; the copy-sync is gone.
+
+** TODO [#A] <<4.2>> Figures and =AI-WORKFLOW.org= for the one set and the two layers :aiAndMe:
+:PROPERTIES:
+:ORIGIN: Mohsen
+:IMPORTANCE: Medium
+:REPO: this
+:BASE: this
+:FOUND: <2026-10-19 Mon>
+:END:
+----- Results: ------
+Done 2026-10-19: =aiCommandsSkillsTrees= (both trees: skills' homes, three skills added, the commands
+as one set, retitled BISOS-AI-Workflow / BISOS-Digital-Ecosystem-Skills) and =aiStartupWorkflow=
+(=_skills/=, =.claude/commands=, suspend/resume) re-rendered and copied to the engine;
+=mother/AI-WORKFLOW.org= gained the one-set paragraph and a pointer to the skill, and its Status
+sentence was corrected. Not marked DONE: awaiting review; nothing committed.
+** -
+
+* Stage 5: The Input Repos Are Themselves aiActivity Projects
+
+Goal: each input repo of the assembled base carries its own AI-collaboration files, so work on the
+templates has a home again after the old BISOS base (=bisos/defaults/ai-templates=) became a link
+(engine 18.10). The templates are developed with the workflow they define.
+
+* Stage 5 TODOs
+** +
+** TODO [#A] <<5.1>> Initiate both input repos as aiActivity projects; move the old base's plan :aiAndMe:
+:PROPERTIES:
+:ORIGIN: Mohsen
+:IMPORTANCE: Medium
+:REPO: this, aiTemplates-DE
+:BASE: this
+:FOUND: <2026-10-20 Tue>
+:END:
+Run =aiActivity.cs= with =--activity=aiActivity= in both input repos, and move the WorkPlan of
+=bisos/defaults/ai-templates.k1= here.
+----- AI Results: ------
+Done 2026-10-20. Not marked DONE: awaiting review. Nothing staged or committed.
+- =aiActivity.cs -i initiate --activity=aiActivity --templates=/bisos/apps/defaults/ai-templates= in
+  both repos (a full =initiate=: bxexamples' root is not initiated, and each repo is cloned on its
+  own). Installed: =CLAUDE.md=, =AI-DevStatus.org= / =AI-WorkPlan.org= seeds, links =AI-WORKFLOW.org=,
+  =AI-Activity.org=, =AI-Outputs.org=, =.claude/{settings.json,commands,skills}=, =.aiActivity.cs/=.
+  The links are absolute into =/bisos/apps/defaults/ai-templates=, as in the engine repo, which
+  commits them.
+- The links are circular by design: this repo's =AI-WORKFLOW.org= -> the base -> back into this repo's
+  =mother/AI-WORKFLOW.org=. An edit to =mother/= is therefore live here at once; a broken base breaks
+  this repo's own context too.
+- The assembler ignores all of it (an input's root files and dot-directories, engine 18.3):
+  =assemblyCheck= on the base afterwards: =IN SYNC=, 71 links, nothing new.
+- *Plan moved*: the old base's Stages 2--4 are here verbatim, with dated notes: Stage 2 checked
+  against the seeds (the mother seed meets 2.1--2.3 and =org-log-done=; the DE seed
+  =bisos-core/AI-WorkPlan.org= meets none, moved to the DE repo as its 1.2); Stage 3 marked
+  superseded. Its =AI-DevStatus.org= rewritten here for this repo (see that file).
+- The DE repo got its own plan: Stage 1 (its 1.1 for this move, 1.2 the seed conventions).
+- Left in place: =bisos/defaults/ai-templates.k1/= (its plan and status are now here, its
+  =README.org= is not; its history is in the =bisos/defaults= repo). Delete it when satisfied.
+** -
+
+
+# Local Variables:
+# eval: (setq-local toc-org-max-depth 4)
+# eval: (setq-local org-log-done 'time)
+# End:

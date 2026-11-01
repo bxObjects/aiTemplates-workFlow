@@ -1,0 +1,62 @@
+#+title: aiTemplates-workFlow --- The BISOS-AI-Workflow Layer of AI-Activity Templates
+#+OPTIONS: toc:2
+
+* What This Repo Is
+
+This repo is one of the two inputs of an *assembled AI-Activity templates base*. It holds the
+*BISOS-AI-Workflow* layer: the part of the templates that defines how a human and Claude Code work
+together on a project, independent of any particular software ecosystem.
+
+The other input is [[https://github.com/bxexamples/aiTemplates-DE][aiTemplates-DE]], the
+*BISOS-Digital-Ecosystem-Skills* layer (ecosystem skills and activities). The two are combined into one
+base, [[https://github.com/bxexamples/aiActivityTemplates][aiActivityTemplates]], by
+=aiActivityAssemble.cs=, and projects are set up from that base by =aiActivity.cs=. Both commands come
+with the engine, [[https://github.com/bisos-pip/aiActivity][bisos.aiActivity]], whose README describes
+the model as a whole.
+
+A fork of the templates adopts this layer as-is and replaces the ecosystem layer with its own.
+
+* Contents
+
+| Path                               | What it is                                                   |
+|------------------------------------+--------------------------------------------------------------|
+| =mother/CLAUDE.md=                 | The project =CLAUDE.md= (safe-copied); imports the AI files  |
+| =mother/AI-WORKFLOW.org=           | The workflow: files, Stages and TODOs, commands, conventions |
+| =mother/AI-DevStatus.org=          | Seed of a project's status handoff                           |
+| =mother/AI-WorkPlan.org=           | Seed of a project's work plan                                |
+| =mother/_claude/=                  | =settings.json= and =commands/=: the =/bx-*= slash commands  |
+| =mother/_skills/=                  | The two workflow skills (see below)                          |
+| =mother/initiateSub/CLAUDE.md=     | The slim =CLAUDE.md= of a sub-project                        |
+| =aiActivity/=, =basic/=, =custom/= | Activities that are about the workflow, not an ecosystem     |
+
+The workflow skills: =authoring-skills= and =bx-ai-commands-authorship=.
+
+The workflow figures are in the engine repo, under =py3/images/=.
+
+* Using It
+
+Clone the three repos side by side and assemble the base:
+
+#+begin_src bash
+git clone https://github.com/bxexamples/aiTemplates-workFlow
+git clone https://github.com/bxexamples/aiTemplates-DE
+git clone https://github.com/bxexamples/aiActivityTemplates
+aiActivityAssemble.cs -i assemblyCheck --base=./aiActivityTemplates
+#+end_src
+
+The base's links into the two inputs are relative and committed, so the clones need no further step.
+After adding, renaming or deleting a file here, run =aiActivityAssemble.cs -i assemblyUpdate= on the
+base; edits to existing files take effect at once.
+
+* Root Files
+
+=AI-*.org=, =CLAUDE.md=, =.claude/= and =.aiActivity.cs/= at this repo's root are its own
+AI-collaboration setup (the templates are developed with the workflow they define). The assembler
+ignores an input's top-level files and dot-directories, so none of them reach the base.
+
+* Support
+
+For support, criticism, comments and questions; please contact the
+author/maintainer\\
+[[http://mohsen.1.banan.byname.net][Mohsen Banan]] at:
+[[http://mohsen.1.banan.byname.net/contact]]

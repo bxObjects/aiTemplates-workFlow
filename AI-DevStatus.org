@@ -1,0 +1,106 @@
+#+title: Development Status & Continuation Handoff
+#+TAGS: me ai aiAndMe
+
+# Provenance (installed once by aiActivity.cs --- not regenerated):
+#   Date:      2026-10-20T04:53:57+00:00
+#   User:      bystar
+#   Templates: /bisos/apps/defaults/ai-templates
+#   Command:   /bisos/venv/py3/devbin/aiActivity.cs -i initiate --activity=aiActivity --templates=/bisos/apps/defaults/ai-templates
+
+# Rewritten 2026-10-20 from the old BISOS base's own AI-DevStatus.org
+# (/bisos/git/bxRepos/bisos/defaults/ai-templates.k1/; history in the bisos/defaults repo).
+
+####+BEGIN: b:ai:file/particulars
+* AI Working Context
+  Working Directory: /bisos/git/auth/bxRepos/bxexamples/aiTemplates-workFlow
+  File: /bisos/git/auth/bxRepos/bxexamples/aiTemplates-workFlow/AI-DevStatus.org
+  Activity: aiActivity
+  Companion Docs: AI-WORKFLOW.org, AI-Activity.org, AI-DevStatus.org
+####+END:
+
+This file is a working-state handoff so development can continue on another
+machine (which has this repo but NOT the developer's =~=). It captures the
+architecture, what works, what is untested and the design decisions made so far.
+
+This file is maintained by Claude. Updates are typically triggered by the
+=/bx-status-update= slash command, after major interactions, or before a release.
+
+* Current State
+
+As of 2026-10-20: this repo is *BISOS-AI-Workflow*, one of the two inputs of an assembled templates
+base (the engine's WorkPlan Stage 18). The other input is =aiTemplates-DE=
+(BISOS-Digital-Ecosystem-Skills). The BISOS base is =bxexamples/aiActivityTemplates=, assembled from
+the two by =aiActivityAssemble.cs=; =/bisos/apps/defaults/ai-templates= is a link to it. The engine
+that installs and assembles is =bisos-pip/aiActivity=, whose =AI-DevStatus.org= is the main handoff;
+this file covers only what is specific to the workflow input.
+
+Since 2026-10-20 (WorkPlan 5.1) this repo is also an aiActivity project (=initiate
+--activity=aiActivity=), as the old BISOS base was before it became a link. The old base's plan is
+in =AI-WorkPlan.org= Stages 2--4.
+
+Open: Stage 2 (=custom/AI-Activity.org= front text; the =listClaudesPath= rename), 4.1's two trigger
+checks.
+
+2026-10-30/31 (from a blee/vscode-claude session; the record is there, its AI-WorkPlan.org 2.1 and
+2.3, and README.org): =/bx-confirm0= renamed =/bx-confirm-root= (=mother/_claude/commands/=), with
+optional =dir==, =emacs== and =callback=yes= arguments for Blee and nothing Emacs-related without them;
+=bx-confirm0.md= kept as an alias that runs it. =mother/AI-WORKFLOW.org=: a new section "The
+AI-Activities of a Session: Root and Here" (root and here, initiate and initiateSub, "Emacs is
+optional"), "the base" → "the root" in the heterogeneous-sub part, the command table. Skill
+=bx-ai-commands-authorship=: rename by alias; a new command works in new sessions only. The engine's
+figures were updated (aiUsageWorkflow, aiCommandsSkillsTrees).
+
+* Architecture
+
+- =mother/= --- the baseline installed into every project: =CLAUDE.md=, =AI-WORKFLOW.org=,
+  =_claude/{settings.json,commands/}= (13 =/bx-*= commands, the one set), =initiateSub/CLAUDE.md=, the
+  seeds =AI-DevStatus.org= / =AI-WorkPlan.org=, and =_skills/= with the two workflow skills
+  (=authoring-skills=, =bx-ai-commands-authorship=). =mother/AI-Activity.org=, =mother/AI-Outputs.org=
+  and the other 20 skills come from =aiTemplates-DE=; the base merges the two =mother/= trees.
+- Activities: =aiActivity= (=_skills -> ../mother/_skills=), =basic=, =custom=.
+- Root files (=AI-*.org=, =CLAUDE.md=, =LICENSE=, =.claude/=, =.aiActivity.cs/=): this repo's own,
+  ignored by the assembler.
+- Figures of the workflow: in the engine, =bisos-pip/aiActivity/py3/images/= (since engine 18.12);
+  =mother/AI-WORKFLOW.org= links to them on GitHub.
+
+* What Works
+
+- Assembly: after adding, renaming or deleting a file here, run
+  =aiActivityAssemble.cs -i assemblyUpdate --base=/bisos/git/bxRepos/bxexamples/aiActivityTemplates=;
+  edits to existing files are live at once (the base links to them). =assemblyCheck= after 5.1:
+  =IN SYNC=, 71 links.
+- This repo's own setup: its =AI-WORKFLOW.org=, =AI-Activity.org= and =.claude/= resolve through the
+  base back into this repo's =mother/= and =aiActivity/=.
+
+* What Is Untested
+
+- =/bx-context-trim= through a full apply cycle.
+- =bx-ai-commands-authorship= loading on a command-editing task, and not on an unrelated one (the two
+  trigger checks of =authoring-skills=).
+- A fresh Claude session started in this repo (the skills listing, the walk-up).
+
+* Key Design Decisions
+
+- *The commands are one set* (2026-10-19), edited here only; every base on the host gets them by
+  assembly. Rationale: the engine =AI-DevStatus.org= (Key Design Decisions) and its Stage 18.
+- *Two layers*: BISOS-AI-Workflow (this repo), adopted by forks as-is; BISOS-Digital-Ecosystem-Skills
+  (=aiTemplates-DE=), replaced by a fork's own.
+- *=mother/= stays the install source only*; material about the templates (figures) lives in the
+  engine, not here (=_nonTemplate_/= retired, engine 18.12).
+- *The input repos are aiActivity projects themselves* (2026-10-20), with the circular links that
+  implies: the templates are developed with the workflow they define.
+
+- *Commit messages: the "69/90" format (2026-10-27, user decision)* --- in
+  =mother/_claude/commands/bx-git-commit-msg.md= and the commands table of =mother/AI-WORKFLOW.org=:
+  subject at most 69 characters (aim 60), body wrapped at 90, sized for magit in a split window;
+  past tense; plain text; trailers =TODOs:= (WorkPlan anchors, =repo:anchor= for another repo's),
+  =Requires:= (cross-repo dependency), =Co-Authored-By:=. The command finds the TODOs from the staged
+  diff against the WorkPlan and its archives. Rationale: TODO anchors are stable even when archived,
+  so a commit points at its AI Results instead of repeating them. Blee side (=blee/env3=,
+  =plus/bcpg:magitPlus.el=, committed): the same limits in =git-commit-mode=, a confirmation on an
+  over-long subject, a narrower log margin, and =c c= offers =.git/CLAUDE_COMMIT_MSG= (renamed
+  =.used= after the commit). An existing command was edited: no re-assembly needed.
+
+# Local Variables:
+# eval: (setq-local toc-org-max-depth 4)
+# End:

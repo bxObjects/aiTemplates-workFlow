@@ -261,7 +261,9 @@ with these =bx-= commands available inside Claude:
 |                    | each with the user's gitOpener setting (aiActivity.cs         |
 |                    | userConfig) or open=; the user stages, sends                  |
 |                    | /bx-git-commit-msg, commits, says "next". Each message ends   |
-|                    | with the next repo's path. No opener: just the list.          |
+|                    | with the next repo's path. No opener: just the list. The      |
+|                    | repo of AI-Outputs.org goes last, with a pull list for the    |
+|                    | other hosts: git -C <path> pull per pushed repo (bashRun:).   |
 |--------------------+---------------------------------------------------------------|
 | /bx-ai-outputs     | Read (index) or capture into AI-Outputs.org, the central      |
 |                    | cross-project findings ledger. No arg = index; arg = capture. |

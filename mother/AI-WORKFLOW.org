@@ -63,18 +63,44 @@ A figure of the setup lifecycle (discover, install, inspect, trim, maintain) is 
 =bisos.aiActivity= repository:
 [[https://github.com/bisos-pip/aiActivity/blob/main/py3/images/aiStartupWorkflow.png][py3/images/aiStartupWorkflow.png]].
 
-** The AI-Activities of a Session: Root and Here
+** The AI-Activities of a Session: Session-Root, Native and Foreign
 
-A Claude session holds a hierarchy of AI-Activities. Its *root* is the session's working directory ---
-in VS Code, the window's folder --- with the top =CLAUDE.md=, confirmed by =/bx-confirm-root=. Other
-activities join it during the session with =/bx-confirm-here <dir>=: an =initiateSub= sub of the root
-(homogeneous or heterogeneous, below), or a separately initiated activity elsewhere. On the install
-side the pair is =initiate= (a root) and =initiateSub= (a sub).
+Two kinds of root, kept apart (the long form, with the reasons: the bisos.aiActivity
+ModelAndTerminology panel):
+
+| Term             | What it is                                 | Recognized by                 |
+|------------------+--------------------------------------------+-------------------------------|
+| AI-Activity      | A directory with a =CLAUDE.md= chain       | =CLAUDE.md=                   |
+| AI-Activity Root | Made by =initiate=; carries the tooling    | =.claude/=, =AI-WORKFLOW.org= |
+| Sub-AI-Activity  | Made by =initiateSub=; content, no tooling | =CLAUDE.md= only              |
+| Home             | Of an AI-Activity: the root it sits under  | The first root walking up     |
+| Session-Root     | A session's working directory              | An AI-Activity Root (rule 1)  |
+| Native / Foreign | Its home is / is not the Session-Root      | Relative to a session         |
+
+Rules:
+1. *A Session-Root must be an AI-Activity Root* --- not a sub, not a directory without one, not "no
+   folder". The Session-Root decides the tooling (=.claude/=: commands, skills, settings); the
+   AI-Activity decides the content (=CLAUDE.md= chain, AI-WorkPlan, AI-DevStatus).
+2. A session has one Session-Root for its whole life; its root AI-Activity is the root there.
+3. One VS Code window is one Session-Root; several sessions in a window share it.
+4. A session may *reach* any AI-Activity, native or foreign (=/bx-activity-reach=); reaching brings
+   content, never tooling.
+5. A *conflict* is two sessions working on the same AI-Activity: a foreign reach into one native to
+   another running session, or two sessions at one Session-Root. Accepted --- reaching across roots
+   is common and useful --- and reported, naming the other session, where it can be known.
+6. The rules are checked by the commands (=aiActivity.cs -i sessionRootCheck=, =-i activityReport=),
+   so they hold without an editor, and by an editor integration before it starts a session.
+A nested root (=initiate= inside another root's tree) is its own home: foreign to a session at the
+outer root although under it, and reported with a warning.
+
+Session commands: =/bx-session-start= (first prompt), =/bx-session-report=, =/bx-session-verify=
+(before closing); =/bx-activity-reach <dir>=, =/bx-activity-report <dir>=. On the install side the
+pair is =initiate= (a root) and =initiateSub= (a sub).
 
 *Emacs is optional.* An AI-Activity is conducted completely inside VS Code (or any Claude front end):
 =CLAUDE.md=, the WorkPlan, the =bx-= commands and the skills never require Emacs. The Blee layer
 (=bx-blee/vscode-claude=) adds a partnership --- Emacs sends prompts into a session, Claude reaches
-Emacs by =emacsclient= --- only when a prompt names that Emacs (=/bx-confirm-root emacs=<socket>=)
+Emacs by =emacsclient= --- only when a prompt names that Emacs (=/bx-session-start emacs=<socket>=)
 or the user asks; it does not interfere with pure VS Code use.
 
 ** Homogeneous and Heterogeneous AI-Activities
@@ -109,9 +135,8 @@ an astro-site sub of the BISOS tree):
 - =/add-dir= is not available in VS Code.
 
 For Claude:
-- Before working in a heterogeneous sub, run =/bx-confirm-here= on it (or =/bx-confirm-root= when the
-  session starts there), and read the sub's chain with the Read tool, by its real path, so that
-  discovery fires.
+- Before working in a heterogeneous sub, run =/bx-activity-reach= on it, and read the sub's chain
+  with the Read tool, by its real path, so that discovery fires. (A sub is never a Session-Root.)
   Also read the YAML frontmatter (=name=, =description=) of every =SKILL.md= under
   =<sub>/.claude/skills/=, so the skills are available even before (or without) discovery.
 - Until a skill shows up in the session's own listing, treat the frontmatter list as available skills:
@@ -122,8 +147,8 @@ For Claude:
 
 Status (2026-10-19): =initiateSub= does not yet install the sub's =.claude/skills=; it is linked by hand.
 Whether a session started /in/ the sub loads them at startup was not tested, and the test was dropped
-(sessions start at the repo root); the reading rule applies either way. The =bx-confirm-root= /
-=bx-confirm-here= commands carry the reading step (in the BISOS templates since 2026-10-19; this
+(sessions start at the repo root); the reading rule applies either way. The =bx-session-start= /
+=bx-activity-reach= commands carry the reading step (in the BISOS templates since 2026-10-19; this
 tree's commands are copies of the BISOS set, see "Claude Slash Commands").
 
 ** File Naming Convention
@@ -175,15 +200,21 @@ Each project initialized with =aiActivity.cs= gets a =.claude/commands/= directo
 with these =bx-= commands available inside Claude:
 
 |--------------------+---------------------------------------------------------------|
-| /bx-confirm-root   | Enumerate imported files and confirm understanding of context |
-|                    | of the session's root AI-Activity. Use at the start of every  |
-|                    | session. Optional args (dir=, emacs=, register=<fn>) are for  |
-|                    | an editor; without them, nothing editor-related. Was          |
-|                    | /bx-confirm0.                                                 |
+| /bx-session-start  | The session's first prompt: check that the Session-Root is an |
+|                    | AI-Activity Root (refuse otherwise), read its import chain,   |
+|                    | confirm understanding. Optional args (dir=, emacs=,           |
+|                    | register=<fn>) are for an editor. Was /bx-confirm-root.       |
 |--------------------+---------------------------------------------------------------|
-| /bx-confirm-here   | Like /bx-confirm-root, but oriented on wherever you've just   |
-|                    | navigated to in the IDE (or an explicit path), not cwd. Joins |
-|                    | that AI-Activity to the session's hierarchy, mid-session.     |
+| /bx-session-report | Where this session stands: Session-Root, root AI-Activity,    |
+|                    | native and foreign AI-Activities reached. Reads nothing new.  |
+|--------------------+---------------------------------------------------------------|
+| /bx-activity-reach | Work on another AI-Activity (an explicit path, or where you   |
+|                    | navigated in the IDE): native or foreign, any conflict; read  |
+|                    | its chain, make it the active context. Was                    |
+|                    | /bx-confirm-here.                                             |
+|--------------------+---------------------------------------------------------------|
+| /bx-activity-report | An AI-Activity relative to this session: root or sub, home, |
+|                    | native or foreign, homogeneous or heterogeneous. Read-only.   |
 |--------------------+---------------------------------------------------------------|
 | /bx-status-read    | Re-read AI-DevStatus.org and AI-WorkPlan.org from disk (picks |
 |                    | up the user's edits); current state, open TODOs, what's next. |
@@ -257,7 +288,7 @@ BISOS-Digital-Ecosystem-Skills with "load first" prerequisites (=aiEcosystemTree
 README shows them all.
 
 Note: in the workflow, CLAUDE.md is read automatically at startup.
-=/bx-confirm-root= is optional but useful as an explicit session-start confirmation.
+=/bx-session-start= is optional but useful as an explicit session-start confirmation.
 
 ** Archiving And Retrieval --- The Round Trip
 
@@ -365,7 +396,7 @@ keyword/=:REPO:= discipline it enforces at capture time.
 ** Stage 0 of ./AI-WorkPlan.org
 
 Stage 0 of ./AI-WorkPlan.org is to be repeated each time a new instance of claude is used.
-/bx-confirm-root can be used for this. Before getting started with a new Claude I want
+/bx-session-start can be used for this. Before getting started with a new Claude I want
 to make sure that I am using the right model and I want to make sure that everything
 that I expect to have been imported has been imported. Work plan can follow after that.
 

@@ -332,6 +332,37 @@ Done 2026-10-20. Not marked DONE: awaiting review. Nothing staged or committed.
   =README.org= is not; its history is in the =bisos/defaults= repo). Delete it when satisfied.
 ** -
 
+* Stage 6: Session-Root, Native and Foreign
+
+Goal: the session commands in the terms of the bisos.aiActivity ModelAndTerminology panel (agreed
+with Mohsen, 2026-11-02): an AI-Activity Root (made by =initiate=, carries the tooling) apart from a
+session's Session-Root (its working directory), which must be one; native and foreign AI-Activities.
+
+* Stage 6 TODOs
+** +
+** TODO [#A] <<6.1>> The terms in AI-WORKFLOW.org; the session and activity commands :aiAndMe:
+:PROPERTIES:
+:ORIGIN: Mohsen
+:IMPORTANCE: High
+:REPO: this
+:BASE: this
+:FOUND: <2026-11-02 Mon>
+:END:
+----- Results: ------
+2026-11-02 (Claude):
+- =mother/AI-WORKFLOW.org=: "Root and Here" became "The AI-Activities of a Session: Session-Root,
+  Native and Foreign" (the terms, six rules, a nested root); the command table and the other
+  mentions follow.
+- Commands: new =bx-session-start= (from bx-confirm-root; first runs =aiActivity.cs -i
+  sessionRootCheck= and refuses a Session-Root that is not an AI-Activity Root), =bx-session-report=,
+  =bx-activity-reach= (from bx-confirm-here; =activityReport= first: native or foreign, conflict
+  line), =bx-activity-report=. =bx-confirm-root=, =bx-confirm0= and =bx-confirm-here= are aliases.
+  =bx-session-verify= marks repos native or foreign; =bx-status-read= names bx-session-start.
+- The seed =mother/AI-WorkPlan.org= names bx-session-start; =bx-ai-commands-authorship= records the
+  renames.
+- Requires bisos-pip/aiActivity 23.1 (=activityModel_csu=). Not yet: assemblyUpdate of the bases (new
+  files); the commands tried in a fresh session; the engine's README and figures.
+** -
 
 # Local Variables:
 # eval: (setq-local toc-org-max-depth 4)

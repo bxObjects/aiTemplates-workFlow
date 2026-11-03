@@ -51,7 +51,8 @@ A rename is a delete plus an add: the bases keep a link to the old name until th
 *Rename with an alias*, so that habits and documents not yet edited keep working: keep the old file
 as a short alias whose first line says it is renamed, and whose body has Claude read the new
 command's file (by its `.claude/commands/` path, with the Read tool) and do what it says with
-`$ARGUMENTS`. Remove the alias later. Done 2026-10-30 for `bx-confirm0` → `bx-confirm-root`.
+`$ARGUMENTS`. Remove the alias later. Done 2026-10-30 for `bx-confirm0` → `bx-confirm-root`, and
+2026-11-02 for `bx-confirm-root` and `bx-confirm0` → `bx-session-start`, `bx-confirm-here` → `bx-activity-reach`.
 
 ## 3. After adding, renaming or deleting: re-assemble the bases
 

@@ -52,6 +52,14 @@ optional"), "the base" → "the root" in the heterogeneous-sub part, the command
 =bx-ai-commands-authorship=: rename by alias; a new command works in new sessions only. The engine's
 figures were updated (aiUsageWorkflow, aiCommandsSkillsTrees).
 
+2026-11-02 (from a blee/vscode-claude session; WorkPlan 6.1, and bisos.aiActivity's
+ModelAndTerminology panel): =mother/AI-WORKFLOW.org='s session section is now "The AI-Activities of
+a Session: Session-Root, Native and Foreign" (the terms, six rules). New commands =bx-session-start=
+(replaces bx-confirm-root; refuses a Session-Root that is not an AI-Activity Root, through
+=aiActivity.cs -i sessionRootCheck=), =bx-session-report=, =bx-activity-reach= (replaces
+bx-confirm-here), =bx-activity-report=; the old names are aliases. Both bases re-assembled (IN SYNC,
+90). Needs bisos.aiActivity 23.1 (=activityModel_csu=). Uncommitted.
+
 * Architecture
 
 - =mother/= --- the baseline installed into every project: =CLAUDE.md=, =AI-WORKFLOW.org=,

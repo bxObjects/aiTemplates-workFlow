@@ -19,7 +19,10 @@ Scope: ONLY what this session changed --- the user has other tools for the whole
    The Import Chain).
 5. Git: do what =/bx-git-uncommitted-list= does for the same repos --- staged, unstaged,
    untracked, unpushed --- including any commit order between repos.
-6. Report the gaps as a table: repo, file, what is missing. Then offer to fill them.
+6. Report the gaps as a table: repo, file, what is missing. Mark each repo native or foreign
+   (=aiActivity.cs -i activityReport --sessionRoot=<the session's working directory> <repo>=;
+   AI-WORKFLOW.org, "The AI-Activities of a Session"): native repos are this session's own; a
+   foreign one belongs to another AI-Activity Root, where another session may also have work. Then offer to fill them.
    If the user agrees, fill them; never stage, commit or push.
 7. End with one line: either "nothing left --- you can close this session", or the remaining
    steps in order (fills, then the commits, e.g. via =/bx-git-commit-msg <repo>=). When repos are

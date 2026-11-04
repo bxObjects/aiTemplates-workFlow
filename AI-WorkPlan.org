@@ -366,6 +366,10 @@ session's Session-Root (its working directory), which must be one; native and fo
 holds =AI-Outputs.org= last, and before it appends a pull list to =AI-Outputs.org= (a section per
 walk, "* Pull On Other Hosts <date>": one =[[bashRun:git -C /bxRepos/<repo> pull]]= per committed and pushed repo, and one for
 all), for the other hosts; =AI-WORKFLOW.org='s command table says so. First used for this session.
+2026-11-04 (Mohsen): that coupling was a design flaw --- it forced a repo with nothing from the session
+into the walk and wrote the list before anything was pushed. Split out: the walk no longer touches
+=AI-Outputs.org=; =/bx-git-pull-list-add= does, after the pushes. Bases re-assembled with the base's
+=assembleUpdate.sh=. The engine's README and figures still to be edited.
 ** -
 
 # Local Variables:

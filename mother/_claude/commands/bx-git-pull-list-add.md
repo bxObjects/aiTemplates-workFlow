@@ -19,8 +19,10 @@ list instead of this session's repos.
    of the text you show, except to tell the user in your reply, outside the file, which repos
    you left out and why. When unsure, ask the user; never guess that a repo is public.
 
-2. *The file.* The real path of the Session-Root's =AI-Outputs.org= link. No =AI-Outputs.org=:
-   say so and stop; do not create one.
+2. *The file.* The real path of the Session-Root's =AI-Outputs.org= link, then =git rev-parse
+   --show-toplevel= and the remote of the repo that holds it: if that remote is not a public BISOS
+   one (the link may lead into an organization's private repo), do not write there; ask the user
+   which public =AI-Outputs.org= to use. No =AI-Outputs.org=: say so and stop; do not create one.
 
 3. *The entry.* At the very end of =AI-Outputs.org=, a last top-level section titled with an org
    date tag, "* Pull On Other Hosts <YYYY-MM-DD Day>". If the file's last section is already

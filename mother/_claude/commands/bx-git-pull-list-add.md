@@ -10,6 +10,15 @@ list instead of this session's repos.
    (=git status --short= clean) and pushed (=git rev-list --count @{u}..HEAD= is 0; say so if
    there is no upstream).
 
+   *Proprietary repos are left out, and not named.* =AI-Outputs.org= is on the public BISOS side:
+   anything written in it is published, so a pull line for a proprietary repo (an organization's
+   private repo, such as the Session-Root itself when it is one) would leak its name and path.
+   List only repos whose remote is a public BISOS remote. A repo that is proprietary, or that you
+   cannot tell is public (a remote that is not a BISOS one, no remote), gets no link and *no
+   line at all*, not even the plain "not pushed" line of step 3: leave it out of the entry and
+   of the text you show, except to tell the user in your reply, outside the file, which repos
+   you left out and why. When unsure, ask the user; never guess that a repo is public.
+
 2. *The file.* The real path of the Session-Root's =AI-Outputs.org= link. No =AI-Outputs.org=:
    say so and stop; do not create one.
 
@@ -24,8 +33,9 @@ list instead of this session's repos.
      the entry is committed and pushed with it, so link it last and say that;
    - a last line that pulls them all:
      =[[bashRun:for d in <path1> <path2> ...; do git -C $d pull; done]]=;
-   - a repo committed but not pushed, not committed, or not under =/bxRepos=: a plain line
-     saying so, with no link (for the last case, with its path, to pull by hand).
+   - a public repo committed but not pushed, not committed, or not under =/bxRepos=: a plain line
+     saying so, with no link (for the last case, with its path, to pull by hand). A proprietary
+     repo has no line (step 1).
    Where =bashRun:= links are not defined they show as plain text naming the command.
 
 4. *Hand over.* Show the entry and say which repo holds the file; the user stages it there with

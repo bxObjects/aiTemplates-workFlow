@@ -93,9 +93,9 @@ Rules:
 A nested root (=initiate= inside another root's tree) is its own home: foreign to a session at the
 outer root although under it, and reported with a warning.
 
-Session commands: =/bx-session-start= (first prompt), =/bx-session-report=, =/bx-session-verify=
-(before closing); =/bx-activity-reach <dir>=, =/bx-activity-report <dir>=. On the install side the
-pair is =initiate= (a root) and =initiateSub= (a sub).
+Session commands: =/bx-session-start= (first prompt), =/bx-session-report=, =/bx-skills-improve= then
+=/bx-session-verify= (before closing); =/bx-activity-reach <dir>=, =/bx-activity-report <dir>=. On the
+install side the pair is =initiate= (a root) and =initiateSub= (a sub).
 
 *Emacs is optional.* An AI-Activity is conducted completely inside VS Code (or any Claude front end):
 =CLAUDE.md=, the WorkPlan, the =bx-= commands and the skills never require Emacs. The Blee layer
@@ -240,6 +240,10 @@ with these =bx-= commands available inside Claude:
 | /bx-session-verify | Before closing a session: are this session's AI-DevStatus,    |
 |                    | AI-WorkPlan and README updates done, cross-references valid,  |
 |                    | repos committed? Reports gaps, fills them only on agreement.  |
+|--------------------+---------------------------------------------------------------|
+| /bx-skills-improve | Before /bx-session-verify: propose evidence-backed edits to   |
+|                    | skills and commands from this session's lessons. Reports a    |
+|                    | table first; edits only on agreement; never commits.          |
 |--------------------+---------------------------------------------------------------|
 | /bx-initiate       | Run aiActivity.cs then read the full import chain.            |
 |                    | For non-Emacs workflows only — Emacs reads CLAUDE.md          |

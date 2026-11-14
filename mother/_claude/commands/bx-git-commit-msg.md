@@ -8,6 +8,9 @@ the repo of the current directory. A leading "at" (=/bx-git-commit-msg at banna=
    staged right now. Do not rely on memory of what was done earlier in the
    conversation — the user controls staging and may have staged a subset, or
    staged something you did not touch.
+   Read the staged text of AI-DevStatus.org, README.org and WorkPlan results for statements that
+   stop being true when committed ("uncommitted", "untracked", "not yet committed"). Say so and
+   offer to reword them; the user stages the fix before the message is written.
 2. If nothing is staged, say so and stop. Show what is unstaged, so the user can stage it.
 3. Find the AI-WorkPlan.org TODOs the staged work belongs to, by matching the staged diff
    against that repo's AI-WorkPlan.org and its archives (=*.org_archive=), not from memory.

@@ -3,6 +3,9 @@ committed. Report first; write nothing until the user agrees.
 
 Scope: ONLY what this session changed --- the user has other tools for the whole host.
 
+If this session taught anything that a skill or command should have known, =/bx-skills-improve=
+comes first: its edits are repos this verify must then cover. Say so when it has not been run.
+
 1. From this session's own record (the conversation, and its summary if compacted), list
    every directory you changed files in, resolved to its git top-level, and every change
    outside any repo (e.g. /etc/hosts, a venv). Say which you are unsure about rather than
@@ -18,7 +21,10 @@ Scope: ONLY what this session changed --- the user has other tools for the whole
    one-line pointer in that repo's AI-DevStatus.org (AI-WORKFLOW.org: Documentation Outside
    The Import Chain).
 5. Git: do what =/bx-git-uncommitted-list= does for the same repos --- staged, unstaged,
-   untracked, unpushed --- including any commit order between repos.
+   untracked, unpushed --- including any commit order between repos. Also whether each repo is
+   behind its remote (=git fetch=, then =git rev-list --count HEAD..@{u}=): another host may have
+   moved the same files (AI-WorkPlan.org stage numbers, AI-DevStatus.org), so a repo that is behind
+   is pulled with =git pull --rebase= before it is committed, not after a rejected push.
 6. Report the gaps as a table: repo, file, what is missing. Mark each repo native or foreign
    (=aiActivity.cs -i activityReport --sessionRoot=<the session's working directory> <repo>=;
    AI-WORKFLOW.org, "The AI-Activities of a Session"): native repos are this session's own; a

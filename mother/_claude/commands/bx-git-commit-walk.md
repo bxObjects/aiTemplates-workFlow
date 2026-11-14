@@ -34,6 +34,12 @@ Invoking this command is the user's agreement to that opening, in that editor, a
    when this repo is needed on its remote), then *"Next: <path of the next repo>"* --- or "Next:
    none, this is the last repo".
 
+   Before the user stages a repo, =git fetch= there and look at =git rev-list --count HEAD..@{u}=:
+   when it is behind, say so first, name the files likely to clash (AI-WorkPlan.org stage numbers,
+   AI-DevStatus.org), and suggest =git pull --rebase= (or =--autostash=) before staging. A rebase
+   changes hashes: a =Requires:= trailer names the hash an earlier repo has *now* (=git log -1=
+   after it landed), not the one seen before the rebase.
+
 4. *On "next"* (or when the next =/bx-git-commit-msg= arrives): check the previous repo landed
    (=git log -1=, =git status --short= clean, and =git rev-list --count @{u}..HEAD= when a push
    was due); if not, say what is left there. Then, with an opener, run it on the next path.

@@ -9,7 +9,12 @@ comes first: its edits are repos this verify must then cover. Say so when it has
 1. From this session's own record (the conversation, and its summary if compacted), list
    every directory you changed files in, resolved to its git top-level, and every change
    outside any repo (e.g. /etc/hosts, a venv). Say which you are unsure about rather than
-   guessing.
+   guessing. Do not trust memory for this: a compacted summary drops the odd one-line fix in a
+   repo outside the activity (found 2026-11-14: a path fix in a shared tool, never walked). List
+   the paths of every Edit and Write call in the session's transcript (the =.jsonl= under
+   =~/.claude/projects/=, named in the compaction summary when there is one; =python3= over its
+   =tool_use= entries, =input.file_path=), plus the files changed by Bash =sed -i= or redirects,
+   and resolve each to its git top level. A repo found only that way goes on the list.
 2. For each repo, check on disk --- not from memory:
    - AI-DevStatus.org reflects this session's work there (current state, what works, what is
      untested, decisions). A repo worked in without the AI files at all: say so.

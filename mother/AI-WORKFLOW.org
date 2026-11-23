@@ -88,6 +88,9 @@ Rules:
 5. A *conflict* is two sessions working on the same AI-Activity: a foreign reach into one native to
    another running session, or two sessions at one Session-Root. Accepted --- reaching across roots
    is common and useful --- and reported, naming the other session, where it can be known.
+   After a reach, a command that acts on "the current directory" (=/bx-archive-update=,
+   =/bx-status-update=, =/bx-todo-do=, ...) acts on the active context, the AI-Activity last reached,
+   not the Session-Root; say which when it could be either.
 6. The rules are checked by the commands (=aiActivity.cs -i sessionRootCheck=, =-i activityReport=),
    so they hold without an editor, and by an editor integration before it starts a session.
 A nested root (=initiate= inside another root's tree) is its own home: foreign to a session at the
@@ -271,6 +274,11 @@ with these =bx-= commands available inside Claude:
 |                    | list for the other hosts to AI-Outputs.org (a section per     |
 |                    | day): git -C <path> pull per pushed repo (bashRun:). Run on   |
 |                    | its own; the walk only suggests it.                           |
+|--------------------+---------------------------------------------------------------|
+| /bx-newResume-confirm | Its other half, on the host where the work continues:      |
+|                    | did the last pull list arrive (each repo at its commit)?      |
+|                    | What needs a reinstall, a PyPI release, a CBM rebuild         |
+|                    | (pipPkgsStatus.cs)? Read-only; recommends, the user acts.     |
 |--------------------+---------------------------------------------------------------|
 | /bx-ai-outputs     | Read (index) or capture into AI-Outputs.org, the central      |
 |                    | cross-project findings ledger. No arg = index; arg = capture. |

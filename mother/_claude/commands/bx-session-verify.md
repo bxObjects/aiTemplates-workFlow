@@ -14,7 +14,9 @@ comes first: its edits are repos this verify must then cover. Say so when it has
    the paths of every Edit and Write call in the session's transcript (the =.jsonl= under
    =~/.claude/projects/=, named in the compaction summary when there is one; =python3= over its
    =tool_use= entries, =input.file_path=), plus the files changed by Bash =sed -i= or redirects,
-   and resolve each to its git top level. A repo found only that way goes on the list.
+   and resolve each to its git top level *by its real path* (=readlink -f=): a symlinked file
+   such as =AI-Outputs.org= belongs to the repo its target is in, not to the one holding the link.
+   A repo found only that way goes on the list.
 2. For each repo, check on disk --- not from memory:
    - AI-DevStatus.org reflects this session's work there (current state, what works, what is
      untested, decisions). A repo worked in without the AI files at all: say so.

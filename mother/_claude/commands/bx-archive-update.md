@@ -19,6 +19,13 @@ If $ARGUMENTS is given, restrict to DONE subtrees whose headline matches it
      and refreshed each session, not archived.
    List the candidates and stop for approval before changing anything.
 
+   Before writing, if a partner Emacs is reachable (=emacs== in a prompt, or the partner file),
+   check that it has neither =AI-WorkPlan.org= nor its archive open with unsaved edits
+   (=(buffer-modified-p (find-buffer-visiting "<file>"))=; skill =bs-blee-emacs-server=). Modified:
+   stop and ask the user to save. An org-mode archive done in Emacs saves the archive at once but
+   leaves the WorkPlan buffer modified; writing the file on disk then loses one side (found
+   2026-11-22: a subtree archived twice, and still TODO in the WorkPlan).
+
 2. Archive each approved subtree: append it to =AI-WorkPlan.org_archive= (create the
    file with an "Archived entries from file ..." header line if absent), promoting it
    to a top-level =*= headline and inserting a properties drawer immediately after the

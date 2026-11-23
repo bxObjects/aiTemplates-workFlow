@@ -97,7 +97,9 @@ A nested root (=initiate= inside another root's tree) is its own home: foreign t
 outer root although under it, and reported with a warning.
 
 Session commands: =/bx-session-start= (first prompt), =/bx-session-report=, =/bx-skills-improve= then
-=/bx-session-verify= (before closing); =/bx-activity-reach <dir>=, =/bx-activity-report <dir>=. On the
+=/bx-session-verify= (before closing), then =/bx-git-pull-list-add= after the pushes; on the next host,
+=/bx-newResume-confirm= after its =/bx-session-start=; =/bx-activity-reach <dir>=,
+=/bx-activity-report <dir>=. On the
 install side the pair is =initiate= (a root) and =initiateSub= (a sub).
 
 *Emacs is optional.* An AI-Activity is conducted completely inside VS Code (or any Claude front end):

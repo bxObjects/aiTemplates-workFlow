@@ -60,6 +60,12 @@ a Session: Session-Root, Native and Foreign" (the terms, six rules). New command
 bx-confirm-here), =bx-activity-report=; the old names are aliases. Both bases re-assembled (IN SYNC,
 90). Needs bisos.aiActivity 23.1 (=activityModel_csu=). Uncommitted.
 
+2026-11-24 (from a blee/vscode-claude session; WorkPlan 6.2): new =bx-session-summary= --- what the
+session did (threads, outcomes, repos, open items) and a recommendation: go on here, /clear, or a new
+session. For the user to see, records nothing; a starting point, to evolve. =bx-session-report=
+points to it; =AI-WORKFLOW.org='s command table has its row. The base is BEHIND by that one link
+until =assemblyUpdate=.
+
 * Architecture
 
 - =mother/= --- the baseline installed into every project: =CLAUDE.md=, =AI-WORKFLOW.org=,

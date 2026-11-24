@@ -96,7 +96,8 @@ Rules:
 A nested root (=initiate= inside another root's tree) is its own home: foreign to a session at the
 outer root although under it, and reported with a warning.
 
-Session commands: =/bx-session-start= (first prompt), =/bx-session-report=, =/bx-skills-improve= then
+Session commands: =/bx-session-start= (first prompt), =/bx-session-report=, =/bx-session-summary= (what
+the session did: go on, =/clear=, or a new session?), =/bx-skills-improve= then
 =/bx-session-verify= (before closing), then =/bx-git-pull-list-add= after the pushes; on the next host,
 =/bx-newResume-confirm= after its =/bx-session-start=; =/bx-activity-reach <dir>=,
 =/bx-activity-report <dir>=. On the
@@ -212,6 +213,10 @@ with these =bx-= commands available inside Claude:
 |--------------------+---------------------------------------------------------------|
 | /bx-session-report | Where this session stands: Session-Root, root AI-Activity,    |
 |                    | native and foreign AI-Activities reached. Reads nothing new.  |
+|--------------------+---------------------------------------------------------------|
+| /bx-session-summary | What this session did: its threads, their outcomes and     |
+|                    | state, the repos, what is open; then go on here, /clear, or a |
+|                    | new session? For the user to see; records nothing.            |
 |--------------------+---------------------------------------------------------------|
 | /bx-activity-reach | Work on another AI-Activity (an explicit path, or where you   |
 |                    | navigated in the IDE): native or foreign, any conflict; read  |

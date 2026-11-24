@@ -1,7 +1,8 @@
 Report where this session stands: its Session-Root, root AI-Activity, and the native and foreign AI-Activities reached. Read-only.
 
 The terms are defined in AI-WORKFLOW.org, "The AI-Activities of a Session". Read nothing new: this is
-a report from what the session already knows, plus two read-only commands.
+a report from what the session already knows, plus two read-only commands. What the session has
+done is =/bx-session-summary=.
 
 1. Run =aiActivity.cs -i sessionRootCheck= and =aiActivity.cs -i activityReport= in the session's
    working directory.

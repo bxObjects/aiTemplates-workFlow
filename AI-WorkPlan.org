@@ -370,6 +370,33 @@ all), for the other hosts; =AI-WORKFLOW.org='s command table says so. First used
 into the walk and wrote the list before anything was pushed. Split out: the walk no longer touches
 =AI-Outputs.org=; =/bx-git-pull-list-add= does, after the pushes. Bases re-assembled with the base's
 =assembleUpdate.sh=. The engine's README and figures still to be edited.
+
+** TODO [#A] <<6.2>> =/bx-session-summary=: what a session did, to decide go on, /clear, or new :aiAndMe:
+:PROPERTIES:
+:ORIGIN: Mohsen
+:IMPORTANCE: Medium
+:REPO: this, and blee/vscode-claude (the driver link)
+:BASE: this
+:FOUND: <2026-11-24 Tue>
+:END:
+=/bx-session-report= says where a session stands, not what it did. A separate command (Mohsen): a
+summary may be long, and it is for the user to see --- to decide whether this session is the right
+place for the next work, or to /clear, or to start a new session --- not to be recorded.
+----- Results: ------
+2026-11-24 (Claude, a starting point to evolve; from a blee/vscode-claude session):
+- =mother/_claude/commands/bx-session-summary.md=: read-only, writes nothing; the record is the
+  conversation and, when compacted, the transcript; the threads (asked, done, decided, state), the
+  repos (status, commits since the start), open items, the weight (=/context= for numbers); a
+  recommendation --- go on here, /clear, or a new session --- for the work named in its argument,
+  else for more of the same.
+- =bx-session-report.md= points to it; =mother/AI-WORKFLOW.org=: its row in the command table and the
+  "Session commands" line.
+- blee/vscode-claude's driver: =#session-summary= on the Session row (a P link: the next work may be
+  typed after it).
+- Tried once by hand in that session (the file read and followed; the command was not installed).
+- Left for the user: =aiActivityAssemble.cs -i assemblyUpdate --base=/bisos/apps/defaults/ai-templates=
+  (=assemblyCheck=: BEHIND, link=1); it is listed in new sessions only. Not updated: the engine's
+  commands figure (=aiCommandsSkillsTrees-graphviz.pcs=, =aiGeneralTree=).
 ** -
 
 # Local Variables:

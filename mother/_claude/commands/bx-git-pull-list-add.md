@@ -30,15 +30,35 @@ list instead of this session's repos.
    in the file's shape: a =TODO= headline "Pull on other hosts --- <date>, session at
    <Session-Root>" with =:REPO: other hosts= and =:FOUND: <date>=, whose body has:
    - one line per repo that is committed *and* pushed, as an org link
-     =[[bashRun:git -C <path> pull]]=, with =<path>= under =/bxRepos/...= (the same on every
-     BISOS host), not the host's real path. The repo that holds =AI-Outputs.org= is listed too:
-     the entry is committed and pushed with it, so link it last and say that;
+     =[[bashRun:git -C <path> pull]] --- <remote head, short hash>=, with =<path>= under
+     =/bisos/git/bxRepos/...= (the same on every BISOS host; never =/bxRepos/...=, a hand-made
+     link a rebuilt host does not have), not the host's real path. The repo that holds
+     =AI-Outputs.org= is listed too: the entry is committed and pushed with it, so link it last
+     and say that;
    - a last line that pulls them all:
-     =[[bashRun:for d in <path1> <path2> ...; do git -C $d pull; done]]=;
-   - a public repo committed but not pushed, not committed, or not under =/bxRepos=: a plain line
-     saying so, with no link (for the last case, with its path, to pull by hand). A proprietary
-     repo has no line (step 1).
+     =[[bashRun:cd /bisos/git/bxRepos && for d in <rel1> <rel2> ...; do git -C $d pull; done]]=;
+   - a public repo committed but not pushed, not committed, or not under =/bisos/git/bxRepos=: a
+     plain line saying so, with no link (for the last case, with its path, to pull by hand). A
+     proprietary repo has no line (step 1);
+   - then "After the pull:" (step 3a), when it has lines.
    Where =bashRun:= links are not defined they show as plain text naming the command.
+
+3a. *After the pull.* What a host needs beyond =git pull=, worked out from git and PyPI, never from
+   memory. Compare each listed repo from the commit the previous pull entry gave it (else the
+   session's first commit there) to its remote head:
+   - *A bisos-pip package* (it has =py3/pypiProc.sh=); its name from =py3/setup.py --name=:
+     - a version newly on PyPI (=pip index versions <name>=), for hosts that run the PyPI copy:
+       =[[bashRun:/bisos/venv/py3/bisos3/bin/pip install --no-cache-dir --upgrade <name>]] --- <ver>=;
+     - =py3/bin/= scripts added, removed or renamed, or =requires= changed (a pull does not make
+       new scripts): =[[bashRun:cd <path>/py3 && ./pypiProc.sh -i pkgReInstall edit /bisos/venv/py3/dev-bisos3]]=;
+     - code changed but not released: a link into the package, where the user releases it with
+       =pypiProc.sh= (skill =bisos-pip-release=):
+       =not released: [[bashRun:pushd <path>/py3]] (<PyPI version> on PyPI) --- <what changed>, <commits>=;
+     - module code only: no line (the editable install takes it with the pull).
+   - *Other follow-ups* the diff calls for: a templates tree with commands or skills added,
+     renamed or deleted (=aiActivityAssemble.cs -i assemblyUpdate=); an =.el= to reload in Blee;
+     a CBM whose capability changed (re-materialize; name it, do not give the command to run it).
+   Each as one line, with its repo.
 
 4. *Hand over.* Show the entry and say which repo holds the file; the user stages it there with
    whatever else is waiting and commits. The user marks the TODO DONE once the other hosts have

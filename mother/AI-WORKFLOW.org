@@ -279,8 +279,9 @@ with these =bx-= commands available inside Claude:
 |--------------------+---------------------------------------------------------------|
 | /bx-git-pull-list-add | After the repos are committed and pushed: append a pull    |
 |                    | list for the other hosts to AI-Outputs.org (a section per     |
-|                    | day): git -C <path> pull per pushed repo (bashRun:). Run on   |
-|                    | its own; the walk only suggests it.                           |
+|                    | day): git -C <path> pull per pushed repo (bashRun:), then     |
+|                    | "After the pull:" --- PyPI upgrades, reinstalls, releases to  |
+|                    | do. Run on its own; the walk only suggests it.                |
 |--------------------+---------------------------------------------------------------|
 | /bx-newResume-confirm | Its other half, on the host where the work continues:      |
 |                    | did the last pull list arrive (each repo at its commit)?      |

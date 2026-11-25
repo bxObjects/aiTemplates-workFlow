@@ -66,6 +66,15 @@ session. For the user to see, records nothing; a starting point, to evolve. =bx-
 points to it; =AI-WORKFLOW.org='s command table has its row. The base is BEHIND by that one link
 until =assemblyUpdate=.
 
+2026-11-25 (from a bisos-pip/b session, the bxGenesis/base work): =bx-git-pull-list-add= writes
+=/bisos/git/bxRepos/...= paths (never =/bxRepos=, which a rebuilt host does not have) and the remote
+head hash on each line, and a new step 3a adds "After the pull:" --- worked out from git and PyPI: a
+=bisos3= upgrade line for a version newly on PyPI, a =pkgReInstall edit= line when =py3/bin/= scripts
+or =requires= change, a "not released" line as a =pushd= link into the package's =py3/= (where the
+user releases it with =pypiProc.sh=), and other follow-ups (=assemblyUpdate=, an =.el= reload, a CBM).
+=bx-newResume-confirm= reads those lines and checks each upgrade with =pip show=. No file added or
+renamed: no =assemblyUpdate= needed.
+
 * Architecture
 
 - =mother/= --- the baseline installed into every project: =CLAUDE.md=, =AI-WORKFLOW.org=,

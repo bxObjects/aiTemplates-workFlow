@@ -14,8 +14,11 @@ pulls, installs, releases and rebuilds. Arguments: none, or the date of the pull
      may be stale; say to pull it first (the driver's =outputs-pull=) and check again.
    - The last top-level section "* Pull On Other Hosts <date>" (or the one dated as given), and its
      entries. An entry already DONE was pulled before: say so, and still check it.
-   - From each =[[bashRun:git -C <path> pull]] --- <commit>= line: the path (=/bxRepos/...=) and the
-     commit. A plain line (not pushed, not committed, outside =/bxRepos=) is reported as written.
+   - From each =[[bashRun:git -C <path> pull]] --- <commit>= line: the path (=/bisos/git/bxRepos/...=;
+     older entries say =/bxRepos/...=, the same repo) and the commit. A plain line (not pushed, not
+     committed, outside =/bisos/git/bxRepos=) is reported as written.
+   - Its "After the pull:" lines (=/bx-git-pull-list-add= step 3a): the upgrades, reinstalls and
+     other follow-ups the closing session found. Step 4 checks them.
 
 3. *Each repo, from git* (=git fetch= is fine; never pull):
    - missing (no clone here): to clone;
@@ -28,8 +31,10 @@ pulls, installs, releases and rebuilds. Arguments: none, or the date of the pull
    - those whose editable install needs a reinstall: =./pypiProc.sh -i pkgReInstall edit
      /bisos/venv/py3/dev-bisos3= in the package's =py3/=; that also exits 0 on failure, so confirm
      each with =pipPkgsStatus.cs -i pkgLocalStatus <repo>= afterwards;
-   - those whose code is newer than PyPI: a release, the user's (skill =bisos-pip-release=).
-   =pipPkgsStatus.cs= not found: say so, and skip this step.
+   - those whose code is newer than PyPI: a release, the user's (skill =bisos-pip-release=);
+   - each "After the pull:" upgrade line: done when =/bisos/venv/py3/bisos3/bin/pip show <name>=
+     gives that version, else to run.
+   =pipPkgsStatus.cs= not found: say so, and check the "After the pull:" lines with =pip show= alone.
 
 5. *The CBMs.* For a pulled repo that is a CBM package (it has a =-cbs.pcs= or a CBM leaf names it,
    skill =cbm-authorship=), say that its capability may need re-materializing, and with what. Do not

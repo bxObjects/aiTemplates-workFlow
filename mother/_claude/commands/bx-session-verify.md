@@ -39,5 +39,5 @@ comes first: its edits are repos this verify must then cover. Say so when it has
    If the user agrees, fill them; never stage, commit or push.
 7. End with one line: either "nothing left --- you can close this session", or the remaining
    steps in order (fills, then the commits, e.g. via =/bx-git-commit-msg <repo>=). When repos are
-   left to commit, offer =/bx-git-commit-walk=: it opens each one in the user's editor in turn
-   (with an opener configured; see that command).
+   left to commit, offer =/bx-git-commit-walk=: it writes every commit message at once, then opens
+   each repo in the user's editor in turn (with an opener configured; see that command).

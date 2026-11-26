@@ -271,11 +271,11 @@ with these =bx-= commands available inside Claude:
 |                    | commit order when one depends on another. Read-only. For all  |
 |                    | repos on the host, use magit.                                 |
 |--------------------+---------------------------------------------------------------|
-| /bx-git-commit-walk | Commit those repos one at a time in the user's editor: opens |
-|                    | each with the user's gitOpener setting (aiActivity.cs         |
-|                    | userConfig) or open=; the user stages, sends                  |
-|                    | /bx-git-commit-msg, commits, says "next". Each message ends   |
-|                    | with the next repo's path. No opener: just the list.          |
+| /bx-git-commit-walk | Write every repo's commit message at once, for a stated      |
+|                    | staging plan (what to stage, leave out, push or hold), then   |
+|                    | open the repos in the user's editor (gitOpener, open=, or an  |
+|                    | Emacs walk); the user stages and commits each, says "done",   |
+|                    | and Claude checks each landed. No opener: just the table.     |
 |--------------------+---------------------------------------------------------------|
 | /bx-git-pull-list-add | After the repos are committed and pushed: append a pull    |
 |                    | list for the other hosts to AI-Outputs.org (a section per     |
